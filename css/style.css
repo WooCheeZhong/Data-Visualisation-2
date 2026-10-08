@@ -1,0 +1,107 @@
+/* Basic page setup */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f7f5f0;
+  color: #20322b;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+/* Top introduction area */
+.hero {
+  background: #1f4d3b;
+  color: #ffffff;
+  padding: 88px 24px 76px;
+  text-align: center;
+}
+
+.hero h1 {
+  max-width: 850px;
+  margin: 8px auto 16px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  line-height: 1.05;
+}
+
+.eyebrow,
+.section-label {
+  margin: 0;
+  color: #d9b44a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.intro {
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #e5eee8;
+}
+
+/* Main story area */
+main {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+section {
+  padding: 72px 0;
+  border-bottom: 1px solid #d8ddd8;
+}
+
+section h2 {
+  max-width: 700px;
+  margin: 10px 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+}
+
+section > p:not(.section-label) {
+  max-width: 680px;
+  margin: 0 0 30px;
+  color: #4b5c54;
+  font-size: 1.05rem;
+}
+
+/* Chart container */
+[id^="chart-"] {
+  min-height: 360px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e1e5e1;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(31, 77, 59, 0.08);
+}
+
+/* Footer */
+footer {
+  padding: 32px 20px;
+  text-align: center;
+  color: #5b6b63;
+  font-size: 0.9rem;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+  .hero {
+    padding: 64px 20px 56px;
+  }
+
+  main {
+    width: min(100% - 28px, 1100px);
+  }
+
+  section {
+    padding: 52px 0;
+  }
+
+  [id^="chart-"] {
+    padding: 12px;
+  }
+}
