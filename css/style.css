@@ -71,6 +71,7 @@ section > p:not(.section-label) {
 
 /* Chart container */
 [id^="chart-"] {
+  width: 100%;
   min-height: 360px;
   padding: 20px;
   background: #ffffff;

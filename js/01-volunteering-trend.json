@@ -1,0 +1,74 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Formal volunteering participation in Australia, 2006 to 2025.",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/volunteering_trend.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "mark": {
+    "type": "line",
+    "color": "#d96b3b",
+    "strokeWidth": 3,
+    "point": {
+      "filled": true,
+      "fill": "#d96b3b",
+      "size": 90
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "sort": [2006, 2010, 2014, 2019, 2020, 2025],
+      "axis": {
+        "labelAngle": 0,
+        "labelPadding": 8
+      }
+    },
+    "y": {
+      "field": "formal_volunteering_pct",
+      "type": "quantitative",
+      "title": "Australians doing formal volunteering (%)",
+      "scale": {
+        "domain": [0, 40]
+      },
+      "axis": {
+        "grid": true,
+        "gridColor": "#e5e8e5",
+        "tickCount": 5
+      }
+    },
+    "tooltip": [
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "formal_volunteering_pct",
+        "type": "quantitative",
+        "title": "Formal volunteering",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "background": null,
+    "axis": {
+      "domainColor": "#93a098",
+      "tickColor": "#93a098",
+      "labelColor": "#43544b",
+      "titleColor": "#20322b",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "view": {
+      "stroke": null
+    }
+  }
+}
