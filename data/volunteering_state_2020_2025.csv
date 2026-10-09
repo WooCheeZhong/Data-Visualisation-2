@@ -1,0 +1,17 @@
+state_code,state,year,formal_volunteering_pct,label_y
+NSW,New South Wales,2020,23.1,23.09
+NSW,New South Wales,2025,22.3,22.83
+VIC,Victoria,2020,24.4,23.94
+VIC,Victoria,2025,21.8,20.27
+QLD,Queensland,2020,25.4,24.79
+QLD,Queensland,2025,22.0,21.98
+SA,South Australia,2020,26.2,26.49
+SA,South Australia,2025,23.6,23.68
+WA,Western Australia,2020,25.6,25.64
+WA,Western Australia,2025,23.9,24.53
+TAS,Tasmania,2020,30.2,30.34
+TAS,Tasmania,2025,27.5,28.13
+NT,Northern Territory,2020,28.4,28.69
+NT,Northern Territory,2025,26.7,27.28
+ACT,Australian Capital Territory,2020,30.9,31.19
+ACT,Australian Capital Territory,2025,22.0,21.12

@@ -1,0 +1,16 @@
+region_code,region,state_code,area_type,volunteers,volunteer_pct,unpaid_carers,unpaid_carer_pct,childcare_providers,childcare_pct,total_people,symbol_lon,symbol_lat
+1GSYD,Greater Sydney,NSW,Capital city,496302,11.6,454470,10.6,1074352,25.2,5231147,151.21,-33.87
+1RNSW,Rest of NSW,NSW,Rest of state,360680,15.5,304123,13.1,594214,25.6,2829637,146.6,-31.9
+2GMEL,Greater Melbourne,VIC,Capital city,486904,12.1,505817,12.6,1068849,26.5,4917750,144.96,-37.81
+2RVIC,Rest of Vic.,VIC,Rest of state,224430,17.3,182678,14.1,333086,25.6,1576613,142.9,-36.2
+3GBRI,Greater Brisbane,QLD,Capital city,282612,13.8,235221,11.5,567706,27.8,2526238,153.03,-27.47
+3RQLD,Rest of Qld,QLD,Rest of state,306867,14.4,244787,11.5,542830,25.4,2615036,144.5,-22.5
+4GADE,Greater Adelaide,SA,Capital city,178780,15.5,150467,13.1,312078,27.1,1387290,138.6,-34.93
+4RSAU,Rest of SA,SA,Rest of state,71576,22.0,42871,13.2,78991,24.3,390843,135.8,-30.1
+5GPER,Greater Perth,WA,Capital city,259554,15.1,186312,10.9,499927,29.1,2116647,115.86,-31.95
+5RWAU,Rest of WA,WA,Rest of state,83394,19.3,44669,10.4,113716,26.4,534804,122.2,-25.5
+6GHOB,Greater Hobart,TAS,Capital city,38331,18.7,25934,12.6,55760,27.1,247086,147.33,-42.88
+6RTAS,Rest of Tas.,TAS,Rest of state,45181,17.5,33804,13.1,63244,24.5,309087,145.9,-41.55
+7GDAR,Greater Darwin,NT,Capital city,17733,15.9,10086,9.0,30165,27.0,139902,130.84,-12.46
+7RNTE,Rest of NT,NT,Rest of state,7955,11.5,7164,10.4,24924,36.2,89103,133.4,-19.5
+8ACTE,Australian Capital Territory,ACT,Capital city,68383,18.4,44384,12.0,105013,28.3,453890,149.13,-35.28
