@@ -1,72 +1,325 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Formal volunteering participation in Australia, 2006 to 2025.",
-  "width": "container",
-  "height": 360,
+  "description": "Change in organised volunteering in Australia from 2006 to 2025.",
+  "width": 500,
+  "height": 350,
+
+  "title": {
+    "text": "How has organised volunteering in Australia changed over time?",
+    "subtitle": "Share of adults who did unpaid work through an organisation in the 12 months before each survey.",
+    "anchor": "start",
+    "fontSize": 20,
+    "subtitleFontSize": 13,
+    "color": "#20322b",
+    "subtitleColor": "#52635a",
+    "offset": 16
+  },
+
   "data": {
-    "url": "data/volunteering_trend.csv",
-    "format": {
-      "type": "csv"
-    }
+    "url": "data/volunteering_trend.csv"
   },
-  "mark": {
-    "type": "line",
-    "color": "#d96b3b",
-    "strokeWidth": 3,
-    "point": {
-      "filled": true,
-      "fill": "#d96b3b",
-      "size": 90
-    }
-  },
+
   "encoding": {
     "x": {
       "field": "year",
-      "type": "ordinal",
-      "title": null,
-      "sort": [2006, 2010, 2014, 2019, 2020, 2025],
+      "type": "quantitative",
+      "scale": {
+        "domain": [2006, 2025],
+        "nice": false
+      },
       "axis": {
+        "title": null,
+        "values": [2006, 2010, 2014, 2019, 2020, 2025],
+        "format": ".0f",
         "labelAngle": 0,
-        "labelPadding": 8
+        "labelPadding": 10,
+        "tickSize": 0,
+        "domainColor": "#9aa8a0",
+        "labelColor": "#44544b"
       }
     },
     "y": {
       "field": "formal_volunteering_pct",
       "type": "quantitative",
-      "title": "Australians doing formal volunteering (%)",
       "scale": {
-        "domain": [0, 40]
+        "domain": [0, 42],
+        "nice": false
       },
       "axis": {
+        "title": "Adults who volunteered through an organisation (%)",
+        "values": [0, 10, 20, 30, 40],
         "grid": true,
-        "gridColor": "#e5e8e5",
-        "tickCount": 5
+        "gridColor": "#dce4dd",
+        "domain": false,
+        "tickColor": "#9aa8a0",
+        "labelColor": "#44544b",
+        "titleColor": "#20322b",
+        "titlePadding": 14
       }
-    },
-    "tooltip": [
-      {
-        "field": "year",
-        "type": "ordinal",
-        "title": "Year"
-      },
-      {
-        "field": "formal_volunteering_pct",
-        "type": "quantitative",
-        "title": "Formal volunteering",
-        "format": ".1f"
-      }
-    ]
+    }
   },
-  "config": {
-    "background": null,
-    "axis": {
-      "domainColor": "#93a098",
-      "tickColor": "#93a098",
-      "labelColor": "#43544b",
-      "titleColor": "#20322b",
-      "labelFontSize": 12,
-      "titleFontSize": 13
+
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "start_year": 2019.1,
+            "end_year": 2020.9,
+            "bottom": 0,
+            "top": 42
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#E8E8DF",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "start_year",
+          "type": "quantitative",
+          "scale": {
+            "domain": [2006, 2025]
+          }
+        },
+        "x2": {
+          "field": "end_year"
+        },
+        "y": {
+          "field": "bottom",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 42]
+          }
+        },
+        "y2": {
+          "field": "top"
+        }
+      }
     },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2020,
+            "formal_volunteering_pct": 39.5,
+            "label": "COVID-19"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "color": "#52635a",
+        "align": "center"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "scale": {
+            "domain": [2006, 2025]
+          }
+        },
+        "y": {
+          "field": "formal_volunteering_pct",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 42]
+          }
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "line",
+        "color": "#0072B2",
+        "strokeWidth": 3
+      }
+    },
+
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#0072B2",
+        "size": 95,
+        "stroke": "#ffffff",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Survey year",
+            "format": ".0f"
+          },
+          {
+            "field": "formal_volunteering_pct",
+            "type": "quantitative",
+            "title": "Adults who volunteered",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+
+    {
+      "transform": [
+        {
+          "calculate": "format(datum.formal_volunteering_pct, '.1f') + '%'",
+          "as": "point_label"
+        },
+        {
+          "filter": "datum.year !== 2020"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -14,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#005b91"
+      },
+      "encoding": {
+        "text": {
+          "field": "point_label"
+        }
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2020,
+            "formal_volunteering_pct": 24.8,
+            "label": "24.8%"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "dy": -10,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#005b91"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "scale": {
+            "domain": [2006, 2025]
+          }
+        },
+        "y": {
+          "field": "formal_volunteering_pct",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 42]
+          }
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2010,
+            "formal_volunteering_pct": 36.2,
+            "label": "Peak: more than 1 in 3 adults"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "dx": 28,
+        "dy": -12,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#20322b"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "scale": {
+            "domain": [2006, 2025]
+          }
+        },
+        "y": {
+          "field": "formal_volunteering_pct",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 42]
+          }
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2025,
+            "formal_volunteering_pct": 22.4,
+            "label": "2025: fewer than 1 in 4"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "top",
+        "dx": -10,
+        "dy": 17,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#20322b"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "scale": {
+            "domain": [2006, 2025]
+          }
+        },
+        "y": {
+          "field": "formal_volunteering_pct",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 42]
+          }
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ],
+
+  "config": {
     "view": {
       "stroke": null
     }
