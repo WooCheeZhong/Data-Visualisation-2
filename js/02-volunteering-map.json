@@ -1,0 +1,119 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Formal volunteering participation by Australian state and territory in 2025.",
+  "title": {
+    "text": "Where do Australians volunteer?",
+    "subtitle": "Circle area shows the share of residents who volunteered formally in 2025"
+  },
+  "width": "container",
+  "height": 480,
+  "autosize": {
+    "type": "fit-x",
+    "contains": "padding",
+    "resize": true
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia-states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "STE_2021_AUST_GDA2020"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eef2ed",
+        "stroke": "#ffffff",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "state": "New South Wales", "longitude": 150.049, "latitude": -32.831 },
+          { "state": "Victoria", "longitude": 145.469, "latitude": -36.557 },
+          { "state": "Queensland", "longitude": 145.773, "latitude": -19.202 },
+          { "state": "South Australia", "longitude": 135.002, "latitude": -32.028 },
+          { "state": "Western Australia", "longitude": 120.962, "latitude": -24.437 },
+          { "state": "Tasmania", "longitude": 146.159, "latitude": -41.549 },
+          { "state": "Northern Territory", "longitude": 133.5, "latitude": -18.486 },
+          { "state": "Australian Capital Territory", "longitude": 149.08, "latitude": -35.522 }
+        ]
+      },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "data/state_contribution.csv"
+            },
+            "key": "state",
+            "fields": [
+              "state_code",
+              "formal_volunteering_pct"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "color": "#d96b3b",
+        "opacity": 0.85,
+        "stroke": "#ffffff",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "formal_volunteering_pct",
+          "type": "quantitative",
+          "title": "Formal volunteering (%)",
+          "scale": {
+            "range": [250, 2200]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State or territory"
+          },
+          {
+            "field": "formal_volunteering_pct",
+            "type": "quantitative",
+            "title": "Formal volunteering",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": null,
+    "view": {
+      "stroke": null
+    },
+    "title": {
+      "fontSize": 18,
+      "color": "#20322b",
+      "subtitleColor": "#4b5c54",
+      "subtitleFontSize": 13,
+      "anchor": "start"
+    },
+    "legend": {
+      "labelColor": "#43544b",
+      "titleColor": "#20322b"
+    }
+  }
+}
