@@ -1,16 +1,28 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Formal volunteering participation by Australian state and territory in 2025.",
-  "title": {
-    "text": "Where do Australians volunteer?",
-    "subtitle": "Circle area shows the share of residents who volunteered formally in 2025"
-  },
+  "description": "Estimated number of Australians who gave informal help, by state and territory.",
   "width": "container",
-  "height": 480,
+  "height": 400,
   "autosize": {
     "type": "fit-x",
     "contains": "padding",
     "resize": true
+  },
+  "padding": {
+    "left": 8,
+    "right": 8,
+    "top": 8,
+    "bottom": 20
+  },
+  "title": {
+    "text": "Everyday help reaches millions across Australia",
+    "subtitle": "Circle area shows estimated people who gave informal help in the last 4 weeks, 2025",
+    "anchor": "start",
+    "fontSize": 21,
+    "subtitleFontSize": 14,
+    "color": "#20322b",
+    "subtitleColor": "#52635a",
+    "offset": 16
   },
   "projection": {
     "type": "mercator"
@@ -26,45 +38,50 @@
       },
       "mark": {
         "type": "geoshape",
-        "fill": "#eef2ed",
+        "fill": "#edf1ed",
         "stroke": "#ffffff",
-        "strokeWidth": 1
+        "strokeWidth": 1.2
       }
     },
     {
       "data": {
         "values": [
-          { "state": "New South Wales", "longitude": 150.049, "latitude": -32.831 },
-          { "state": "Victoria", "longitude": 145.469, "latitude": -36.557 },
-          { "state": "Queensland", "longitude": 145.773, "latitude": -19.202 },
-          { "state": "South Australia", "longitude": 135.002, "latitude": -32.028 },
-          { "state": "Western Australia", "longitude": 120.962, "latitude": -24.437 },
-          { "state": "Tasmania", "longitude": 146.159, "latitude": -41.549 },
-          { "state": "Northern Territory", "longitude": 133.5, "latitude": -18.486 },
-          { "state": "Australian Capital Territory", "longitude": 149.08, "latitude": -35.522 }
+          {"state_code": "WA", "longitude": 120.962, "latitude": -24.437},
+          {"state_code": "NT", "longitude": 133.500, "latitude": -18.486},
+          {"state_code": "QLD", "longitude": 145.773, "latitude": -19.202},
+          {"state_code": "SA", "longitude": 135.002, "latitude": -32.028},
+          {"state_code": "NSW", "longitude": 150.049, "latitude": -32.831},
+          {"state_code": "VIC", "longitude": 145.469, "latitude": -36.557},
+          {"state_code": "TAS", "longitude": 146.159, "latitude": -41.549},
+          {"state_code": "ACT", "longitude": 149.080, "latitude": -35.522}
         ]
       },
       "transform": [
         {
-          "lookup": "state",
+          "lookup": "state_code",
           "from": {
             "data": {
               "url": "data/state_contribution.csv"
             },
-            "key": "state",
+            "key": "state_code",
             "fields": [
-              "state_code",
-              "formal_volunteering_pct"
+              "state",
+              "informal_volunteering_pct",
+              "informal_volunteering_thousands"
             ]
           }
+        },
+        {
+          "calculate": "datum.informal_volunteering_thousands * 1000",
+          "as": "informal_people"
         }
       ],
       "mark": {
         "type": "circle",
-        "color": "#d96b3b",
-        "opacity": 0.85,
-        "stroke": "#ffffff",
-        "strokeWidth": 1.2
+        "color": "#E69F00",
+        "opacity": 0.86,
+        "stroke": "white",
+        "strokeWidth": 1.5
       },
       "encoding": {
         "longitude": {
@@ -76,12 +93,26 @@
           "type": "quantitative"
         },
         "size": {
-          "field": "formal_volunteering_pct",
+          "field": "informal_volunteering_thousands",
           "type": "quantitative",
-          "title": "Formal volunteering (%)",
           "scale": {
-            "range": [250, 2200]
-          }
+            "domain": [0, 2100],
+            "range": [0, 4200]
+          },
+          "legend": {
+            "title": "Estimated people (thousands)",
+                "titleLimit": 350,
+                "orient": "bottom",
+                "direction": "horizontal",
+                "values": [100, 500, 1000, 2000],
+                "format": ",.0f",
+                "columns": 4,
+                "offset": 12,
+                "labelFontSize": 11,
+                "titleFontSize": 12,
+                "labelColor": "#20322b",
+                "titleColor": "#20322b"
+            }   
         },
         "tooltip": [
           {
@@ -90,30 +121,94 @@
             "title": "State or territory"
           },
           {
-            "field": "formal_volunteering_pct",
+            "field": "informal_people",
             "type": "quantitative",
-            "title": "Formal volunteering",
+            "title": "Estimated people helping",
+            "format": ",.0f"
+          },
+          {
+            "field": "informal_volunteering_pct",
+            "type": "quantitative",
+            "title": "Share of residents helping",
             "format": ".1f"
           }
         ]
       }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "Western Australia", "longitude": 120.962, "latitude": -24.437, "label_longitude": 114.5, "label_latitude": -21.5},
+          {"state": "Northern Territory", "longitude": 133.500, "latitude": -18.486, "label_longitude": 129.0, "label_latitude": -15.5},
+          {"state": "Queensland", "longitude": 145.773, "latitude": -19.202, "label_longitude": 147.0, "label_latitude": -15.8},
+          {"state": "South Australia", "longitude": 135.002, "latitude": -32.028, "label_longitude": 128.5, "label_latitude": -35.0},
+          {"state": "New South Wales", "longitude": 150.049, "latitude": -32.831, "label_longitude": 151.3, "label_latitude": -29.4},
+          {"state": "Victoria", "longitude": 145.469, "latitude": -36.557, "label_longitude": 139.0, "label_latitude": -39.7},
+          {"state": "Tasmania", "longitude": 146.159, "latitude": -41.549, "label_longitude": 149.0, "label_latitude": -43.5},
+          {"state": "Australian Capital Territory", "longitude": 149.080, "latitude": -35.522, "label_longitude": 151.7, "label_latitude": -36.8}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#60746A",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "label_longitude"
+        },
+        "latitude2": {
+          "field": "label_latitude"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "Western Australia", "label_longitude": 114.5, "label_latitude": -21.5},
+          {"state": "Northern Territory", "label_longitude": 129.0, "label_latitude": -15.5},
+          {"state": "Queensland", "label_longitude": 147.0, "label_latitude": -15.8},
+          {"state": "South Australia", "label_longitude": 128.5, "label_latitude": -35.0},
+          {"state": "New South Wales", "label_longitude": 151.3, "label_latitude": -29.4},
+          {"state": "Victoria", "label_longitude": 139.0, "label_latitude": -39.7},
+          {"state": "Tasmania", "label_longitude": 149.0, "label_latitude": -43.5},
+          {"state": "Australian Capital Territory", "label_longitude": 151.7, "label_latitude": -36.8}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#20322B"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "label_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "label_latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "state"
+        }
+      }
     }
   ],
   "config": {
-    "background": null,
     "view": {
       "stroke": null
-    },
-    "title": {
-      "fontSize": 18,
-      "color": "#20322b",
-      "subtitleColor": "#4b5c54",
-      "subtitleFontSize": 13,
-      "anchor": "start"
-    },
-    "legend": {
-      "labelColor": "#43544b",
-      "titleColor": "#20322b"
     }
   }
 }

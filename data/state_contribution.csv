@@ -1,9 +1,9 @@
-state_code,state,formal_volunteering_pct,informal_volunteering_pct,unpaid_support_pct
-NSW,New South Wales,22.3,28.5,42.6
-VIC,Victoria,21.8,30.1,48
-QLD,Queensland,22,30.2,44.8
-SA,South Australia,23.6,29.3,44.3
-WA,Western Australia,23.9,29.9,47.9
-TAS,Tasmania,27.5,27.8,47.1
-NT,Northern Territory,26.7,38,49
-ACT,Australian Capital Territory,22,28.5,46.5
+state_code,state,formal_volunteering_pct,informal_volunteering_pct,unpaid_support_pct,formal_volunteering_thousands,informal_volunteering_thousands,unpaid_support_thousands
+NSW,New South Wales,22.3,28.5,42.6,1554.4,1987.7,2971.6
+VIC,Victoria,21.8,30.1,48.0,1252.9,1732.4,2760.0
+QLD,Queensland,22.0,30.2,44.8,990.8,1363.9,2021.9
+SA,South Australia,23.6,29.3,44.3,364.4,452.4,685.0
+WA,Western Australia,23.9,29.9,47.9,574.4,716.1,1149.9
+TAS,Tasmania,27.5,27.8,47.1,129.4,130.8,221.7
+NT,Northern Territory,26.7,38.0,49.0,44.6,63.5,81.9
+ACT,Australian Capital Territory,22.0,28.5,46.5,85.7,111.0,181.0

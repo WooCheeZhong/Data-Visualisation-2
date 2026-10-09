@@ -106,3 +106,60 @@ footer {
     padding: 12px;
   }
 }
+
+/* Prevent legends from overflowing, fix the escaping axis line */
+[id^="chart-"] {
+  min-width: 0;
+  overflow: hidden;
+}
+
+[id^="chart-"] .vega-embed,
+[id^="chart-"] .vega-embed > div {
+  width: 100%;
+  max-width: 100%;
+}
+
+[id^="chart-"] svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* For whitespace and reading flow */
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px 96px;
+}
+
+section {
+  padding: 72px 0 20px;
+}
+
+section + section {
+  margin-top: 64px;
+  border-top: 1px solid #dce4dd;
+}
+
+section h2 {
+  margin: 0 0 12px;
+}
+
+section > p {
+  max-width: 700px;
+  margin: 0 0 32px;
+  line-height: 1.65;
+}
+
+[id^="chart-"] {
+  margin: 0 0 48px;
+  padding: 28px;
+}
+
+/* Avoid large empty gaps or crowded elements */
+.chart-insight {
+  max-width: 700px;
+  margin: -20px 0 48px;
+  color: #52635a;
+  line-height: 1.6;
+}
