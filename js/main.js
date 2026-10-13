@@ -22,3 +22,9 @@ displayChart(
   "#chart-3",
   "js/03-organised-volunteering.json"
 ).catch(console.error);
+
+displayChart(
+  "#chart-4",
+  "js/04-state-change-slopegraph.json"
+).catch(console.error);
+

@@ -1,0 +1,360 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Change in formal volunteering rates by Australian state and territory from 2020 to 2025.",
+  "width": "container",
+  "height": 350,
+  "autosize": {
+    "type": "fit-x",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": {
+    "left": 0,
+    "right": 8,
+    "top": 8,
+    "bottom": 8
+  },
+  "data": {
+    "values": [
+      { "state": "ACT", "year": "2020", "rate": 30.9, "label_rate": 30.9 },
+      { "state": "ACT", "year": "2025", "rate": 22.0, "label_rate": 21.70 },
+
+      { "state": "TAS", "year": "2020", "rate": 30.2, "label_rate": 30.2 },
+      { "state": "TAS", "year": "2025", "rate": 27.5, "label_rate": 27.5 },
+
+      { "state": "NT", "year": "2020", "rate": 28.4, "label_rate": 28.4 },
+      { "state": "NT", "year": "2025", "rate": 26.7, "label_rate": 26.7 },
+
+      { "state": "SA", "year": "2020", "rate": 26.2, "label_rate": 26.35 },
+      { "state": "SA", "year": "2025", "rate": 23.6, "label_rate": 23.42 },
+
+      { "state": "WA", "year": "2020", "rate": 25.6, "label_rate": 25.78 },
+      { "state": "WA", "year": "2025", "rate": 23.9, "label_rate": 24.08 },
+
+      { "state": "QLD", "year": "2020", "rate": 25.4, "label_rate": 25.22 },
+      { "state": "QLD", "year": "2025", "rate": 22.0, "label_rate": 22.18 },
+
+      { "state": "VIC", "year": "2020", "rate": 24.4, "label_rate": 24.4 },
+      { "state": "VIC", "year": "2025", "rate": 21.8, "label_rate": 21.30 },
+
+      { "state": "NSW", "year": "2020", "rate": 23.1, "label_rate": 23.1 },
+      { "state": "NSW", "year": "2025", "rate": 22.3, "label_rate": 22.60 }
+    ]
+  },
+  "transform": [
+    {
+      "calculate": "datum.state + ' ' + format(datum.rate, '.1f') + '%'",
+      "as": "state_rate_label"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": ["2020", "2025"],
+          "scale": {
+            "paddingInner": 0.72,
+            "paddingOuter": 0.35
+          },
+          "axis": {
+            "orient": "top",
+            "title": null,
+            "labelAngle": 0,
+            "labelFontSize": 14,
+            "labelFontWeight": "bold",
+            "labelColor": "#20322b",
+            "labelPadding": 14,
+            "ticks": false,
+            "domain": false
+          }
+        },
+        "y": {
+          "field": "rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [20.55, 31.9],
+            "nice": false
+          },
+          "axis": null
+        },
+        "detail": {
+          "field": "state"
+        },
+        "order": {
+          "field": "year",
+          "sort": "ascending"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.state === 'ACT'",
+            "value": "#c95d35"
+          },
+          "value": "#c9d0ca"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.state !== 'ACT'"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 125,
+        "color": "#55675e",
+        "stroke": "#ffffff",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": ["2020", "2025"]
+        },
+        "y": {
+          "field": "rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [20.55, 31.9],
+            "nice": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State or territory"
+          },
+          {
+            "field": "year",
+            "type": "nominal",
+            "title": "Year"
+          },
+          {
+            "field": "rate",
+            "type": "quantitative",
+            "title": "Formal volunteering rate (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.state === 'ACT'"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 145,
+        "color": "#c95d35",
+        "stroke": "#ffffff",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": ["2020", "2025"]
+        },
+        "y": {
+          "field": "rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [20.55, 31.9],
+            "nice": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State or territory"
+          },
+          {
+            "field": "year",
+            "type": "nominal",
+            "title": "Year"
+          },
+          {
+            "field": "rate",
+            "type": "quantitative",
+            "title": "Formal volunteering rate (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year === '2020'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -14,
+        "fontSize": 12,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": ["2020", "2025"]
+        },
+        "y": {
+          "field": "label_rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [20.55, 31.9],
+            "nice": false
+          }
+        },
+        "text": {
+          "field": "state_rate_label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.state === 'ACT'",
+            "value": "#b44f2b"
+          },
+          "value": "#52635a"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year === '2025'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 14,
+        "fontSize": 12,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": ["2020", "2025"]
+        },
+        "y": {
+          "field": "label_rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [20.55, 31.9],
+            "nice": false
+          }
+        },
+        "text": {
+          "field": "state_rate_label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.state === 'ACT'",
+            "value": "#b44f2b"
+          },
+          "value": "#52635a"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2020",
+            "rate": 31.55,
+            "annotation": "All 8 states and territories declined"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#52635a"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": ["2020", "2025"]
+        },
+        "y": {
+          "field": "rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [20.55, 31.9],
+            "nice": false
+          }
+        },
+        "text": {
+          "field": "annotation"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2025",
+            "rate": 20.86,
+            "annotation": "ACT: largest fall (-8.9 percentage points)"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -14,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#b44f2b"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "sort": ["2020", "2025"]
+        },
+        "y": {
+          "field": "rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [20.55, 31.9],
+            "nice": false
+          }
+        },
+        "text": {
+          "field": "annotation"
+        }
+      }
+    }
+  ],
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    }
+  }
+}
