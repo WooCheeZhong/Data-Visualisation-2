@@ -287,9 +287,9 @@ section > p {
   box-shadow: 0 8px 24px rgba(32, 50, 43, 0.06);
 }
 
-/* Removes the general chart-card styling from Chart 1 only,
-   because chart-one-card is now its outer card. */
-.chart-one-card #chart-1 {
+/* Removes the general chart-card styling,
+   because of the outer card. */
+.chart-one-card .chart-canvas {
   min-height: 0;
   margin: 0;
   padding: 0;

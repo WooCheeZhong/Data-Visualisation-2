@@ -28,3 +28,12 @@ displayChart(
   "js/04-state-change-slopegraph.json"
 ).catch(console.error);
 
+displayChart(
+  "#chart-5",
+  "js/05-carer-dot-map.json"
+).catch(console.error);
+
+displayChart(
+  "#chart-6",
+  "js/06-childcare-map.json"
+).catch(console.error); 

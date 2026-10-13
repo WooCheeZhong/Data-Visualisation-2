@@ -1,0 +1,148 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dot-density map showing where Australians who provide unpaid care live.",
+  "width": "container",
+  "height": 300,
+  "autosize": {
+    "type": "fit-x",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": {
+    "left": 0,
+    "right": 0,
+    "top": 4,
+    "bottom": 8
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia-states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "STE_2021_AUST_GDA2020"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#edf1ed",
+        "stroke": "#ffffff",
+        "strokeWidth": 1.2
+      }
+    },
+    {
+      "data": {
+        "url": "data/carer_dots.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.region === 'Sydney' ? 'Greater Sydney' : datum.region === 'Melbourne' ? 'Greater Melbourne' : datum.region === 'Brisbane' ? 'Greater Brisbane' : datum.region === 'Adelaide' ? 'Greater Adelaide' : datum.region === 'Perth' ? 'Greater Perth' : datum.region === 'Hobart' ? 'Greater Hobart' : datum.region === 'Darwin' ? 'Greater Darwin' : datum.region === 'New South Wales' ? 'Rest of NSW' : datum.region === 'Victoria' ? 'Rest of Vic.' : datum.region === 'Queensland' ? 'Rest of Qld' : datum.region === 'South Australia' ? 'Rest of SA' : datum.region === 'Western Australia' ? 'Rest of WA' : datum.region === 'Tasmania' ? 'Rest of Tas.' : datum.region === 'Northern Territory' ? 'Rest of NT' : datum.region === 'Australian Capital Territory' ? 'ACT' : datum.region",
+          "as": "lookup_region"
+        },
+        {
+          "lookup": "lookup_region",
+          "from": {
+            "data": {
+              "url": "data/census_unpaid_by_region.csv",
+              "format": {
+                "type": "csv"
+              }
+            },
+            "key": "region",
+            "fields": [
+              "state_code",
+              "unpaid_carers",
+              "unpaid_carer_pct",
+              "total_people"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 15,
+        "fill": "#009E73",
+        "opacity": 0.82
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "region",
+            "type": "nominal",
+            "title": "Region"
+          },
+          {
+            "field": "area_type",
+            "type": "nominal",
+            "title": "Area type"
+          },
+          {
+            "field": "unpaid_carers",
+            "type": "quantitative",
+            "title": "People providing unpaid care",
+            "format": ",.0f"
+          },
+          {
+            "field": "unpaid_carer_pct",
+            "type": "quantitative",
+            "title": "Share providing unpaid care (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "longitude": 113.5,
+            "latitude": -13.4,
+            "label": "Each dot = 5,000 carers"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -12,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#405148"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ],
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    }
+  }
+}

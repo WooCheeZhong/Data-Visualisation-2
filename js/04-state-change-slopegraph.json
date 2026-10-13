@@ -16,29 +16,29 @@
   },
   "data": {
     "values": [
-      { "state": "ACT", "year": "2020", "rate": 30.9, "label_rate": 30.9 },
-      { "state": "ACT", "year": "2025", "rate": 22.0, "label_rate": 21.70 },
+      { "state": "Australian Capital Territory", "year": "2020", "rate": 30.9, "label_rate": 30.9 },
+      { "state": "Australian Capital Territory", "year": "2025", "rate": 22.0, "label_rate": 21.70 },
 
-      { "state": "TAS", "year": "2020", "rate": 30.2, "label_rate": 30.2 },
-      { "state": "TAS", "year": "2025", "rate": 27.5, "label_rate": 27.5 },
+      { "state": "Tasmania", "year": "2020", "rate": 30.2, "label_rate": 30.2 },
+      { "state": "Tasmania", "year": "2025", "rate": 27.5, "label_rate": 27.5 },
 
-      { "state": "NT", "year": "2020", "rate": 28.4, "label_rate": 28.4 },
-      { "state": "NT", "year": "2025", "rate": 26.7, "label_rate": 26.7 },
+      { "state": "Northern Territory", "year": "2020", "rate": 28.4, "label_rate": 28.4 },
+      { "state": "Northern Territory", "year": "2025", "rate": 26.7, "label_rate": 26.7 },
 
-      { "state": "SA", "year": "2020", "rate": 26.2, "label_rate": 26.35 },
-      { "state": "SA", "year": "2025", "rate": 23.6, "label_rate": 23.42 },
+      { "state": "South Australia", "year": "2020", "rate": 26.2, "label_rate": 26.35 },
+      { "state": "South Australia", "year": "2025", "rate": 23.6, "label_rate": 23.42 },
 
-      { "state": "WA", "year": "2020", "rate": 25.6, "label_rate": 25.78 },
-      { "state": "WA", "year": "2025", "rate": 23.9, "label_rate": 24.08 },
+      { "state": "Western Australia", "year": "2020", "rate": 25.6, "label_rate": 25.78 },
+      { "state": "Western Australia", "year": "2025", "rate": 23.9, "label_rate": 24.08 },
 
-      { "state": "QLD", "year": "2020", "rate": 25.4, "label_rate": 25.22 },
-      { "state": "QLD", "year": "2025", "rate": 22.0, "label_rate": 22.18 },
+      { "state": "Queensland", "year": "2020", "rate": 25.4, "label_rate": 25.22 },
+      { "state": "Queensland", "year": "2025", "rate": 22.0, "label_rate": 22.18 },
 
-      { "state": "VIC", "year": "2020", "rate": 24.4, "label_rate": 24.4 },
-      { "state": "VIC", "year": "2025", "rate": 21.8, "label_rate": 21.30 },
+      { "state": "Victoria", "year": "2020", "rate": 24.4, "label_rate": 24.4 },
+      { "state": "Victoria", "year": "2025", "rate": 21.8, "label_rate": 21.30 },
 
-      { "state": "NSW", "year": "2020", "rate": 23.1, "label_rate": 23.1 },
-      { "state": "NSW", "year": "2025", "rate": 22.3, "label_rate": 22.60 }
+      { "state": "New South Wales", "year": "2020", "rate": 23.1, "label_rate": 23.1 },
+      { "state": "New South Wales", "year": "2025", "rate": 22.3, "label_rate": 22.60 }
     ]
   },
   "transform": [
@@ -92,7 +92,7 @@
         },
         "color": {
           "condition": {
-            "test": "datum.state === 'ACT'",
+            "test": "datum.state === 'Australian Capital Territory'",
             "value": "#c95d35"
           },
           "value": "#c9d0ca"
