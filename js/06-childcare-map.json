@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Map of the share of people aged 15 and over who provided unpaid childcare.",
   "width": "container",
-  "height": 440,
+  "height": 350,
   "autosize": {
     "type": "fit-x",
     "contains": "padding",

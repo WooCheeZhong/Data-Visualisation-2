@@ -37,3 +37,13 @@ displayChart(
   "#chart-6",
   "js/06-childcare-map.json"
 ).catch(console.error); 
+
+displayChart(
+  "#chart-7",
+  "js/07-care-by-age-gender.json"
+).catch(console.error);
+
+displayChart(
+  "#chart-8",
+  "js/08-three-contributions.json"
+).catch(console.error);
