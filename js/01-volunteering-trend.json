@@ -2,18 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Change in organised volunteering in Australia from 2006 to 2025.",
   "width": 500,
-  "height": 350,
-
-  "title": {
-    "text": "How has organised volunteering in Australia changed over time?",
-    "subtitle": "Share of adults who did unpaid work through an organisation in the 12 months before each survey.",
-    "anchor": "start",
-    "fontSize": 20,
-    "subtitleFontSize": 13,
-    "color": "#20322b",
-    "subtitleColor": "#52635a",
-    "offset": 16
-  },
+  "height": 200,
 
   "data": {
     "url": "data/volunteering_trend.csv"

@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Estimated number and percentage of Australians who gave informal help, by state and territory.",
   "width": "container",
-  "height": 400,
+  "height": 340,
   "autosize": {
     "type": "fit-x",
     "contains": "padding",

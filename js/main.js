@@ -17,3 +17,8 @@ displayChart(
   "#chart-2",
   "js/02-volunteering-map.json"
 ).catch(console.error);
+
+displayChart(
+  "#chart-3",
+  "js/03-organised-volunteering.json"
+).catch(console.error);
