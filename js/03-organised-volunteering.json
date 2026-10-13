@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "States and territories ranked by organised volunteering participation in 2025.",
   "width": "container",
-  "height": 340,
+  "height": 360,
   
   "autosize": {
     "type": "fit-x",
