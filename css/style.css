@@ -38,7 +38,7 @@ body {
   color: #c7d6cf;
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.12em; 
 }
 
 /* Styles the main title: “Everyday Life in Australia”. */
@@ -322,5 +322,95 @@ section > p {
   .chart-one-layout {
     grid-template-columns: 1fr;
     gap: 30px;
+  }
+}
+
+/* Place the map card and its explanation in two aligned columns.
+   The map receives more space so its full state names remain readable. */
+.map-story-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+/* Keep both columns within their allocated grid space. */
+.map-story-layout > * {
+  min-width: 0;
+}
+
+/* Group the heading, map, takeaway and source in one white card. */
+.chart-panel {
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #dce4dd;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(32, 50, 43, 0.06);
+}
+
+/* Align the heading and description with the map's container,
+   takeaway and source below. */
+.chart-heading {
+  margin: 0 0 10px;
+  color: #20322b;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.chart-description {
+  margin: 0 0 24px;
+  color: #52635a;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Remove the shared chart-card decoration from a chart already
+   inside a panel. This rule can be reused for any chart number. */
+.chart-panel .chart-canvas {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Align the story heading with the top of the white map card. */
+.map-story h3 {
+  margin: 0 0 20px;
+  color: #20322b;
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+
+/* Give the explanatory paragraphs consistent vertical spacing. */
+.map-story > p:not(.story-note) {
+  margin: 0 0 22px;
+  color: #405148;
+  line-height: 1.65;
+}
+
+/* Match the highlighted words to the orange section label. */
+.story-note strong,
+.chart-takeaway strong {
+  color: #c95d35;
+}
+
+/* Stack the explanation below the map when two columns would
+   leave too little room for the map's full labels and legends. */
+@media (max-width: 1100px) {
+  .map-story-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 700px) {
+  .chart-panel {
+    padding: 18px;
   }
 }
