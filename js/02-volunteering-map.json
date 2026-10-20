@@ -107,7 +107,10 @@
           "lookup": "state_code",
           "from": {
             "data": {
-              "url": "data/state_contribution.csv"
+              "url": "data/state_contribution.csv",
+              "format": {
+                "type": "csv"
+              }
             },
             "key": "state_code",
             "fields": [
@@ -156,11 +159,10 @@
             ],
             "orient": "left",
             "direction": "vertical",
-            "order": 0,
             "gradientLength": 150,
             "gradientThickness": 16,
             "format": ".1f",
-            "offset": 16,
+            "offset": 8,
             "labelFontSize": 11,
             "titleFontSize": 12,
             "labelColor": "#20322b",
@@ -172,7 +174,7 @@
           "type": "quantitative",
           "scale": {
             "domain": [0, 2100],
-            "range": [0, 4200]
+            "range": [0, 2400]
           },
           "legend": {
             "title": [
@@ -181,11 +183,10 @@
             ],
             "orient": "left",
             "direction": "vertical",
-            "order": 1,
             "values": [100, 500, 1000, 2000],
             "format": ",.0f",
             "columns": 1,
-            "offset": 16,
+            "offset": 2,
             "labelFontSize": 11,
             "titleFontSize": 12,
             "labelColor": "#20322b",
@@ -264,16 +265,9 @@
     }
   ],
   "config": {
+    "font": "Arial",
     "view": {
       "stroke": null
-    },
-    "legend": {
-      "layout": {
-        "left": {
-          "direction": "vertical",
-          "margin": 24
-        }
-      }
     }
   }
 }
