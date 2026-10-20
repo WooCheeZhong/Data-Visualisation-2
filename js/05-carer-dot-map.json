@@ -42,11 +42,7 @@
       },
       "transform": [
         {
-          "calculate": "datum.region === 'Sydney' ? 'Greater Sydney' : datum.region === 'Melbourne' ? 'Greater Melbourne' : datum.region === 'Brisbane' ? 'Greater Brisbane' : datum.region === 'Adelaide' ? 'Greater Adelaide' : datum.region === 'Perth' ? 'Greater Perth' : datum.region === 'Hobart' ? 'Greater Hobart' : datum.region === 'Darwin' ? 'Greater Darwin' : datum.region === 'New South Wales' ? 'Rest of NSW' : datum.region === 'Victoria' ? 'Rest of Vic.' : datum.region === 'Queensland' ? 'Rest of Qld' : datum.region === 'South Australia' ? 'Rest of SA' : datum.region === 'Western Australia' ? 'Rest of WA' : datum.region === 'Tasmania' ? 'Rest of Tas.' : datum.region === 'Northern Territory' ? 'Rest of NT' : datum.region === 'Australian Capital Territory' ? 'ACT' : datum.region",
-          "as": "lookup_region"
-        },
-        {
-          "lookup": "lookup_region",
+          "lookup": "region",
           "from": {
             "data": {
               "url": "data/census_unpaid_by_region.csv",
