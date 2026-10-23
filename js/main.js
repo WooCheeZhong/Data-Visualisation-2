@@ -47,3 +47,8 @@ displayChart(
   "#chart-8",
   "js/08-three-contributions.json"
 ).catch(console.error);
+
+displayChart(
+  "#chart-9",
+  "js/09-activity-frequency.json"
+).catch(console.error);

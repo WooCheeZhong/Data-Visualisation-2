@@ -1,0 +1,256 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bump chart ranking age groups by the share active at least as often as each frequency step, from once a week to every day.",
+  "width": "container",
+  "height": 320,
+  "padding": {
+    "left": 0,
+    "right": 12,
+    "top": 6,
+    "bottom": 6
+  },
+  "data": {
+    "url": "data/activity_by_age.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "indexof(['1+ per year', '1+ per month', '1+ per fortnight'], datum.frequency) < 0"
+    },
+    {
+      "calculate": "datum.frequency === '1+ per week' ? 'Once a week' : replace(datum.frequency, ' per ', ' a ')",
+      "as": "frequency_label"
+    },
+    {
+      "calculate": "toNumber(datum.participation_pct)",
+      "as": "participation_pct"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "groupby": ["frequency"],
+      "sort": [
+        {
+          "field": "participation_pct",
+          "order": "descending"
+        }
+      ]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "frequency_label",
+      "type": "ordinal",
+      "sort": [
+        "Once a week",
+        "2+ a week",
+        "3+ a week",
+        "4+ a week",
+        "5+ a week",
+        "6+ a week",
+        "7+ a week"
+      ],
+      "scale": {
+        "padding": 0.4
+      },
+      "axis": {
+        "title": "Active at least…",
+        "titleFontSize": 11,
+        "titleColor": "#405148",
+        "titlePadding": 10,
+        "labelFontSize": 11,
+        "labelColor": "#405148",
+        "labelAngle": 0,
+        "labelPadding": 6,
+        "domain": true,
+        "domainColor": "#87948d",
+        "domainWidth": 1.2,
+        "ticks": true,
+        "tickColor": "#87948d",
+        "tickSize": 4
+      }
+    },
+    "y": {
+      "field": "rank",
+      "type": "ordinal",
+      "scale": {
+        "padding": 0.5
+      },
+      "axis": {
+        "title": "Rank (1 = highest share active)",
+        "titleFontSize": 11,
+        "titleColor": "#405148",
+        "titlePadding": 10,
+        "labelFontSize": 11,
+        "labelColor": "#405148",
+        "labelPadding": 8,
+        "grid": true,
+        "gridColor": "#eef0ec",
+        "domain": false,
+        "ticks": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "pick",
+          "select": {
+            "type": "point",
+            "fields": ["age_group"],
+            "on": "click",
+            "clear": "dblclick"
+          },
+          "value": [
+            {
+              "age_group": "55-64"
+            }
+          ]
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "cursor": "pointer",
+        "point": {
+          "filled": true,
+          "size": 60,
+          "cursor": "pointer"
+        }
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "param": "pick",
+            "field": "age_group",
+            "type": "nominal",
+            "scale": {
+              "domain": ["15-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65+"],
+              "range": ["#3f6fb0", "#5f8fc7", "#8fb3d9", "#6a5aa8", "#8a4f9e", "#b7791f", "#b0477f"]
+            },
+            "legend": null
+          },
+          "value": "#d9dbe8"
+        },
+        "detail": {
+          "field": "age_group",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "age_group",
+            "type": "nominal",
+            "title": "Age group"
+          },
+          {
+            "field": "frequency_label",
+            "type": "nominal",
+            "title": "Active at least"
+          },
+          {
+            "field": "rank",
+            "type": "quantitative",
+            "title": "Rank (of 7)"
+          },
+          {
+            "field": "participation_pct",
+            "type": "quantitative",
+            "title": "Share of age group (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": {
+            "param": "pick",
+            "empty": false
+          }
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 4,
+        "point": {
+          "filled": true,
+          "size": 90
+        }
+      },
+      "encoding": {
+        "color": {
+          "field": "age_group",
+          "type": "nominal",
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "age_group",
+            "type": "nominal",
+            "title": "Age group"
+          },
+          {
+            "field": "frequency_label",
+            "type": "nominal",
+            "title": "Active at least"
+          },
+          {
+            "field": "rank",
+            "type": "quantitative",
+            "title": "Rank (of 7)"
+          },
+          {
+            "field": "participation_pct",
+            "type": "quantitative",
+            "title": "Share of age group (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.frequency_label === '7+ a week'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "cursor": "pointer"
+      },
+      "encoding": {
+        "text": {
+          "field": "age_group"
+        },
+        "color": {
+          "condition": {
+            "param": "pick",
+            "field": "age_group",
+            "type": "nominal",
+            "legend": null
+          },
+          "value": "#9aa39e"
+        }
+      }
+    }
+  ],
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    }
+  }
+}
