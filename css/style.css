@@ -56,7 +56,7 @@ body {
 
 /* Styles the introductory paragraph that explains the whole data story. */
 .hero-summary {
-  max-width: 760px;
+  max-width: 46ch;
   margin: 0;
   color: #e5ece7;
   font-size: 1.15rem;
@@ -165,7 +165,7 @@ section h2 {
 }
 
 section > p {
-  max-width: 700px;
+  max-width: 46ch;
   margin: 0 0 32px;
   line-height: 1.65;
 }
@@ -207,7 +207,7 @@ section > p {
    No negative margin: negative margins can cause overlap.
 ------------------------------------------------- */
 .chart-insight {
-  max-width: 700px;
+  max-width: 46ch;
   margin: 0 0 48px;
   color: #52635a;
   line-height: 1.6;
@@ -412,5 +412,153 @@ section > p {
 @media (max-width: 700px) {
   .chart-panel {
     padding: 18px;
+  }
+}
+/* Dropdown menus that Vega adds below interactive charts. */
+.vega-bindings {
+  margin-top: 14px;
+}
+
+.vega-bind-name {
+  margin-right: 10px;
+  color: #405148;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.vega-bind select {
+  padding: 6px 10px;
+  color: #20322b;
+  font: inherit;
+  font-size: 0.9rem;
+  background: #ffffff;
+  border: 1px solid #c9d0ca;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.vega-bind select:focus-visible {
+  outline: 2px solid #c95d35;
+  outline-offset: 2px;
+}
+
+/* =================================================
+   FOOTER METADATA
+   Author, date and full data sources.
+================================================= */
+.site-footer {
+  background: #163f35;
+  color: #d9e3dd;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr);
+  gap: 48px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 28px 64px;
+}
+
+.site-footer h2 {
+  margin: 0 0 14px;
+  color: #f8f6f0;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.site-footer p,
+.site-footer ul {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.site-footer ul {
+  padding-left: 18px;
+}
+
+.site-footer li + li {
+  margin-top: 6px;
+}
+
+.site-footer strong {
+  color: #f8f6f0;
+}
+
+@media (max-width: 800px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 44px 18px 52px;
+  }
+}
+
+/* =================================================
+   LINE LENGTH
+   Keeps every line of running text to about ten words.
+   46ch fits roughly 55-60 characters of Arial, the
+   width of ten average English words and their spaces.
+================================================= */
+p,
+li,
+dd {
+  max-width: 46ch;
+}
+
+/* Large hero numbers are short labels, not running text. */
+.hero-metric .metric-number {
+  max-width: none;
+}
+
+/* =================================================
+   READING NOTES
+   Short points under each chart description saying
+   what each shape stands for and how the data is
+   shown on it. Same text style as the description.
+================================================= */
+.chart-description:has(+ .chart-reading) {
+  margin-bottom: 8px;
+}
+
+.chart-reading {
+  margin: 0 0 24px;
+  padding-left: 20px;
+  color: #52635a;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.chart-reading li + li {
+  margin-top: 2px;
+}
+
+/* =================================================
+   CHART CARD FOOTER
+   Takeaway and source side by side below the chart,
+   so short lines still fill the card's width.
+================================================= */
+.chart-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #dce4dd;
+}
+
+.chart-footer .chart-takeaway {
+  margin: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Stack takeaway and source on narrow screens. */
+@media (max-width: 700px) {
+  .chart-footer {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 }

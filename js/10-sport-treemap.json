@@ -1,0 +1,355 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Treemap: the 20 most popular sports and physical activities for Australian adults (15+), January to December 2025 (AusPlay By Sport Data Tables, Table 1). Tile area = estimated number of participants. Tiles are grouped into six families of activity. People can do more than one activity, so the tiles add up to more than the adult population.",
+  "autosize": "none",
+  "height": 500,
+  "padding": {
+    "left": 0,
+    "right": 0,
+    "top": 0,
+    "bottom": 0
+  },
+  "signals": [
+    {
+      "name": "width",
+      "init": "max(containerSize()[0], 300)",
+      "on": [
+        {
+          "events": "window:resize",
+          "update": "max(containerSize()[0], 300)"
+        }
+      ]
+    },
+    {
+      "name": "hoverFamily",
+      "value": null,
+      "on": [
+        {
+          "events": "@tiles:pointerover",
+          "update": "datum.family"
+        },
+        {
+          "events": "@tiles:pointerout",
+          "update": "null"
+        }
+      ]
+    }
+  ],
+  "data": [
+    {
+      "name": "activities",
+      "url": "data/top_activities_2025.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "participants": "number",
+          "participation_pct": "number"
+        }
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "as": "id",
+          "expr": "'activity: ' + datum.activity"
+        },
+        {
+          "type": "formula",
+          "as": "parent",
+          "expr": "datum.family"
+        }
+      ]
+    },
+    {
+      "name": "groups",
+      "values": [
+        {
+          "id": "root",
+          "parent": null
+        },
+        {
+          "id": "Walking",
+          "parent": "root"
+        },
+        {
+          "id": "Gym and studio",
+          "parent": "root"
+        },
+        {
+          "id": "Running and cycling",
+          "parent": "root"
+        },
+        {
+          "id": "Water",
+          "parent": "root"
+        },
+        {
+          "id": "Team sports",
+          "parent": "root"
+        },
+        {
+          "id": "Racquet sports & golf",
+          "parent": "root"
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "source": [
+        "groups",
+        "activities"
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "participants",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "round": true,
+          "method": "squarify",
+          "ratio": 1.4,
+          "paddingInner": 3,
+          "paddingOuter": 0,
+          "paddingTop": 20,
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "familyNodes",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.depth === 1"
+        }
+      ]
+    },
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.depth === 2"
+        },
+        {
+          "type": "formula",
+          "as": "w",
+          "expr": "datum.x1 - datum.x0"
+        },
+        {
+          "type": "formula",
+          "as": "h",
+          "expr": "datum.y1 - datum.y0"
+        },
+        {
+          "type": "formula",
+          "as": "count_label",
+          "expr": "datum.participants >= 1000000 ? format(datum.participants / 1000000, '.1f') + 'M' : format(datum.participants / 1000, ',.0f') + 'k'"
+        },
+        {
+          "type": "formula",
+          "as": "short",
+          "expr": "datum.activity == 'Football (soccer)' ? 'Football' : datum.activity == 'Australian football' ? 'AFL' : datum.activity == 'Table tennis' ? 'Table tennis' : datum.activity"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "colour",
+      "type": "ordinal",
+      "domain": [
+        "Walking",
+        "Gym and studio",
+        "Running and cycling",
+        "Water",
+        "Team sports",
+        "Racquet sports & golf"
+      ],
+      "range": [
+        "#2c3e8c",
+        "#8a9a2b",
+        "#6c8290",
+        "#a8dcc0",
+        "#cfc4ec",
+        "#4a4a4a"
+      ]
+    },
+    {
+      "name": "ink",
+      "type": "ordinal",
+      "domain": [
+        "Walking",
+        "Gym and studio",
+        "Running and cycling",
+        "Water",
+        "Team sports",
+        "Racquet sports & golf"
+      ],
+      "range": [
+        "#ffffff",
+        "#1d2410",
+        "#ffffff",
+        "#173a2a",
+        "#2a2350",
+        "#ffffff"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "text",
+      "from": {
+        "data": "familyNodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0",
+            "offset": 14
+          },
+          "text": {
+            "field": "id"
+          },
+          "limit": {
+            "signal": "datum.x1 - datum.x0"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "fontWeight": {
+            "value": 700
+          },
+          "fill": {
+            "value": "#20322b"
+          }
+        }
+      }
+    },
+    {
+      "name": "tiles",
+      "type": "rect",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "enter": {
+          "cornerRadius": {
+            "value": 3
+          },
+          "tooltip": {
+            "signal": "{'Activity': datum.activity, 'Group': datum.family, 'Adults taking part': format(datum.participants, ','), 'Share of adults': format(datum.participation_pct, '.1f') + '%'}"
+          }
+        },
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "scale": "colour",
+            "field": "family"
+          },
+          "opacity": {
+            "signal": "hoverFamily === null || hoverFamily === datum.family ? 1 : 0.35"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.x0 + 7"
+          },
+          "y": {
+            "signal": "datum.y0 + 17"
+          },
+          "text": {
+            "signal": "datum.w > 44 && datum.h > 28 ? datum.short : ''"
+          },
+          "limit": {
+            "signal": "datum.w - 12"
+          },
+          "fontSize": {
+            "signal": "datum.w > 200 && datum.h > 120 ? 16 : datum.w < 75 ? 10.5 : 11.5"
+          },
+          "fontWeight": {
+            "value": 700
+          },
+          "fill": {
+            "scale": "ink",
+            "field": "family"
+          },
+          "opacity": {
+            "signal": "hoverFamily === null || hoverFamily === datum.family ? 1 : 0.35"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.x0 + 7"
+          },
+          "y": {
+            "signal": "datum.y0 + (datum.w > 200 && datum.h > 120 ? 36 : 30)"
+          },
+          "text": {
+            "signal": "datum.w > 44 && datum.h > 44 ? (datum.w < 75 ? datum.count_label : datum.count_label + ' \u00b7 ' + format(datum.participation_pct, '.0f') + '%') : ''"
+          },
+          "limit": {
+            "signal": "datum.w - 12"
+          },
+          "fontSize": {
+            "signal": "datum.w > 200 && datum.h > 120 ? 13 : datum.w < 75 ? 10 : 11"
+          },
+          "fill": {
+            "scale": "ink",
+            "field": "family"
+          },
+          "opacity": {
+            "signal": "hoverFamily === null || hoverFamily === datum.family ? 0.9 : 0.3"
+          }
+        }
+      }
+    }
+  ]
+}

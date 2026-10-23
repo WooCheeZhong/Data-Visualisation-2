@@ -52,3 +52,13 @@ displayChart(
   "#chart-9",
   "js/09-activity-frequency.json"
 ).catch(console.error);
+
+displayChart(
+  "#chart-10",
+  "js/10-sport-treemap.json"
+).catch(console.error);
+
+displayChart(
+  "#chart-11",
+  "js/11-activity-by-state.json"
+).catch(console.error);
