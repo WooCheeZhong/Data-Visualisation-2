@@ -13,12 +13,12 @@
       "field": "year",
       "type": "quantitative",
       "scale": {
-        "domain": [2006, 2025],
+        "domain": [2005, 2025],
         "nice": false
       },
       "axis": {
         "title": null,
-        "values": [2006, 2010, 2014, 2019, 2020, 2025],
+        "values": [2005, 2010, 2015, 2020, 2025],
         "format": ".0f",
         "labelAngle": 0,
         "labelPadding": 10,
@@ -31,7 +31,7 @@
       "field": "formal_volunteering_pct",
       "type": "quantitative",
       "scale": {
-        "domain": [0, 42],
+        "domain": [0, 40],
         "nice": false
       },
       "axis": {
@@ -56,7 +56,7 @@
             "start_year": 2019.1,
             "end_year": 2020.9,
             "bottom": 0,
-            "top": 42
+            "top": 40
           }
         ]
       },
@@ -70,7 +70,7 @@
           "field": "start_year",
           "type": "quantitative",
           "scale": {
-            "domain": [2006, 2025]
+            "domain": [2005, 2025]
           }
         },
         "x2": {
@@ -80,7 +80,7 @@
           "field": "bottom",
           "type": "quantitative",
           "scale": {
-            "domain": [0, 42]
+            "domain": [0, 40]
           }
         },
         "y2": {
@@ -94,7 +94,7 @@
         "values": [
           {
             "year": 2020,
-            "formal_volunteering_pct": 39.5,
+            "formal_volunteering_pct": 38,
             "label": "COVID-19"
           }
         ]
@@ -110,14 +110,14 @@
           "field": "year",
           "type": "quantitative",
           "scale": {
-            "domain": [2006, 2025]
+            "domain": [2005, 2025]
           }
         },
         "y": {
           "field": "formal_volunteering_pct",
           "type": "quantitative",
           "scale": {
-            "domain": [0, 42]
+            "domain": [0, 40]
           }
         },
         "text": {
@@ -209,14 +209,14 @@
           "field": "year",
           "type": "quantitative",
           "scale": {
-            "domain": [2006, 2025]
+            "domain": [2005, 2025]
           }
         },
         "y": {
           "field": "formal_volunteering_pct",
           "type": "quantitative",
           "scale": {
-            "domain": [0, 42]
+            "domain": [0, 40]
           }
         },
         "text": {
@@ -250,14 +250,14 @@
           "field": "year",
           "type": "quantitative",
           "scale": {
-            "domain": [2006, 2025]
+            "domain": [2005, 2025]
           }
         },
         "y": {
           "field": "formal_volunteering_pct",
           "type": "quantitative",
           "scale": {
-            "domain": [0, 42]
+            "domain": [0, 40]
           }
         },
         "text": {
@@ -291,14 +291,14 @@
           "field": "year",
           "type": "quantitative",
           "scale": {
-            "domain": [2006, 2025]
+            "domain": [2005, 2025]
           }
         },
         "y": {
           "field": "formal_volunteering_pct",
           "type": "quantitative",
           "scale": {
-            "domain": [0, 42]
+            "domain": [0, 40]
           }
         },
         "text": {
