@@ -1,0 +1,209 @@
+{
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Waffle chart of 100 squares showing how adults take part in sport and physical activity: informal only, both kinds, organised only, not stated, or not active.",
+    "width":  340,
+    "height":  340,
+    "padding":  {
+                    "left":  0,
+                    "right":  8,
+                    "top":  4,
+                    "bottom":  52
+                },
+    "data":  {
+                 "url":  "data/activity_participation_waffle.csv",
+                 "format":  {
+                                "type":  "csv",
+                                "parse":  {
+                                              "participation_pct":  "number",
+                                              "squares":  "number",
+                                              "order":  "number"
+                                          }
+                            }
+             },
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               },
+    "layer":  [
+                  {
+                      "params":  [
+                                     {
+                                         "name":  "group",
+                                         "select":  {
+                                                        "type":  "point",
+                                                        "fields":  [
+                                                                       "participation_type"
+                                                                   ],
+                                                        "on":  "pointerover",
+                                                        "clear":  "pointerout"
+                                                    },
+                                         "bind":  "legend"
+                                     }
+                                 ],
+                      "transform":  [
+                                        {
+                                            "calculate":  "sequence(0, datum.squares)",
+                                            "as":  "square"
+                                        },
+                                        {
+                                            "flatten":  [
+                                                            "square"
+                                                        ]
+                                        },
+                                        {
+                                            "window":  [
+                                                           {
+                                                               "op":  "row_number",
+                                                               "as":  "position"
+                                                           }
+                                                       ],
+                                            "sort":  [
+                                                         {
+                                                             "field":  "order"
+                                                         },
+                                                         {
+                                                             "field":  "square"
+                                                         }
+                                                     ]
+                                        },
+                                        {
+                                            "calculate":  "(datum.position - 1) % 10",
+                                            "as":  "col"
+                                        },
+                                        {
+                                            "calculate":  "floor((datum.position - 1) / 10)",
+                                            "as":  "row"
+                                        },
+                                        {
+                                            "calculate":  "datum.participation_type + \u0027 · \u0027 + format(datum.participation_pct, \u0027.1f\u0027) + \u0027%\u0027",
+                                            "as":  "legend_label"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "rect",
+                                   "cornerRadius":  3,
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  3,
+                                   "cursor":  "pointer"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "col",
+                                                 "type":  "ordinal",
+                                                 "axis":  null
+                                             },
+                                       "y":  {
+                                                 "field":  "row",
+                                                 "type":  "ordinal",
+                                                 "axis":  null
+                                             },
+                                       "color":  {
+                                                     "field":  "legend_label",
+                                                     "type":  "nominal",
+                                                     "sort":  {
+                                                                  "field":  "order"
+                                                              },
+                                                     "scale":  {
+                                                                   "range":  [
+                                                                                 "#cc79a7",
+                                                                                 "#e8b730",
+                                                                                 "#4c5fd5",
+                                                                                 "#e8e8e3",
+                                                                                 "#c9ccc6"
+                                                                             ]
+                                                               },
+                                                     "legend":  {
+                                                                    "orient":  "right",
+                                                                    "title":  null,
+                                                                    "labelFontSize":  12,
+                                                                    "labelColor":  "#20322b",
+                                                                    "symbolType":  "square",
+                                                                    "symbolSize":  200,
+                                                                    "symbolStrokeWidth":  0,
+                                                                    "rowPadding":  8,
+                                                                    "offset":  20,
+                                                                    "labelLimit":  220
+                                                                }
+                                                 },
+                                       "opacity":  {
+                                                       "condition":  {
+                                                                         "param":  "group",
+                                                                         "value":  1
+                                                                     },
+                                                       "value":  0.25
+                                                   },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "participation_type",
+                                                           "type":  "nominal",
+                                                           "title":  "How adults take part"
+                                                       },
+                                                       {
+                                                           "field":  "participation_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Share of adults (%)",
+                                                           "format":  ".1f"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "label":  "78.9% exercise informally (pink and yellow squares)"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "fontSize":  11.5,
+                                   "fontStyle":  "italic",
+                                   "color":  "#405148"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "value":  0
+                                             },
+                                       "y":  {
+                                                 "value":  362
+                                             },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "label":  "Only 6.5% rely on organised activity alone (blue squares)"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "fontSize":  11.5,
+                                   "fontStyle":  "italic",
+                                   "color":  "#405148"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "value":  0
+                                             },
+                                       "y":  {
+                                                 "value":  382
+                                             },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  }
+              ]
+}

@@ -1,0 +1,609 @@
+{
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Scatter plot comparing weekly physical activity with formal volunteering for each state and territory in 2025, split into four groups by the median of each measure.",
+    "width":  "container",
+    "height":  340,
+    "padding":  {
+                    "left":  0,
+                    "right":  16,
+                    "top":  6,
+                    "bottom":  6
+                },
+    "data":  {
+                 "url":  "data/activity_by_state.csv",
+                 "format":  {
+                                "type":  "csv"
+                            }
+             },
+    "transform":  [
+                      {
+                          "filter":  "datum.year === \u00272025\u0027 \u0026\u0026 datum.frequency === \u0027At least once per week\u0027"
+                      },
+                      {
+                          "lookup":  "state_code",
+                          "from":  {
+                                       "data":  {
+                                                    "url":  "data/state_contribution.csv",
+                                                    "format":  {
+                                                                   "type":  "csv"
+                                                               }
+                                                },
+                                       "key":  "state_code",
+                                       "fields":  [
+                                                      "formal_volunteering_pct"
+                                                  ]
+                                   }
+                      },
+                      {
+                          "calculate":  "toNumber(datum.participation_pct)",
+                          "as":  "active_pct"
+                      },
+                      {
+                          "calculate":  "toNumber(datum.formal_volunteering_pct)",
+                          "as":  "volunteer_pct"
+                      },
+                      {
+                          "joinaggregate":  [
+                                                {
+                                                    "op":  "median",
+                                                    "field":  "active_pct",
+                                                    "as":  "median_active"
+                                                },
+                                                {
+                                                    "op":  "median",
+                                                    "field":  "volunteer_pct",
+                                                    "as":  "median_volunteer"
+                                                }
+                                            ]
+                      },
+                      {
+                          "calculate":  "datum.state_code === \u0027NSW\u0027 ? \u0027left\u0027 : datum.state_code === \u0027TAS\u0027 ? \u0027below\u0027 : \u0027right\u0027",
+                          "as":  "label_side"
+                      },
+                      {
+                          "calculate":  "datum.label_side === \u0027left\u0027 ? datum.active_pct - 0.25 : datum.label_side === \u0027below\u0027 ? datum.active_pct : datum.active_pct + 0.25",
+                          "as":  "label_x"
+                      },
+                      {
+                          "calculate":  "datum.state_code === \u0027NSW\u0027 ? datum.volunteer_pct + 0.15 : datum.state_code === \u0027QLD\u0027 ? datum.volunteer_pct - 0.2 : datum.state_code === \u0027TAS\u0027 ? datum.volunteer_pct - 0.25 : datum.volunteer_pct",
+                          "as":  "label_y"
+                      }
+                  ],
+    "layer":  [
+                  {
+                      "mark":  {
+                                   "type":  "rule",
+                                   "color":  "#87948d",
+                                   "strokeDash":  [
+                                                      5,
+                                                      4
+                                                  ],
+                                   "strokeWidth":  1.2
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "aggregate":  "min",
+                                                 "field":  "median_active",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "rule",
+                                   "color":  "#87948d",
+                                   "strokeDash":  [
+                                                      5,
+                                                      4
+                                                  ],
+                                   "strokeWidth":  1.2
+                               },
+                      "encoding":  {
+                                       "y":  {
+                                                 "aggregate":  "min",
+                                                 "field":  "median_volunteer",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "x":  65.2,
+                                                      "y":  27.7,
+                                                      "label":  "Less active, more volunteering"
+                                                  },
+                                                  {
+                                                      "x":  65.2,
+                                                      "y":  20.3,
+                                                      "label":  "Less active, less volunteering"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "fontSize":  10,
+                                   "fontStyle":  "italic",
+                                   "color":  "#708078"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "y",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "x":  79.8,
+                                                      "y":  27.7,
+                                                      "label":  "More active, more volunteering"
+                                                  },
+                                                  {
+                                                      "x":  79.8,
+                                                      "y":  20.3,
+                                                      "label":  "More active, less volunteering"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "right",
+                                   "fontSize":  10,
+                                   "fontStyle":  "italic",
+                                   "color":  "#708078"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "y",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "circle",
+                                   "size":  110,
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  1.5,
+                                   "opacity":  1
+                               },
+                      "encoding":  {
+                                       "color":  {
+                                                     "field":  "state_code",
+                                                     "type":  "nominal",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  "NSW",
+                                                                                  "VIC",
+                                                                                  "QLD",
+                                                                                  "SA",
+                                                                                  "WA",
+                                                                                  "TAS",
+                                                                                  "NT",
+                                                                                  "ACT"
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#4e79a7",
+                                                                                 "#f28e2b",
+                                                                                 "#9c755f",
+                                                                                 "#8d8d8d",
+                                                                                 "#c99a00",
+                                                                                 "#8f6bb3",
+                                                                                 "#c2378f",
+                                                                                 "#3f3f52"
+                                                                             ]
+                                                               },
+                                                     "legend":  null
+                                                 },
+                                       "x":  {
+                                                 "field":  "active_pct",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           },
+                                                 "axis":  {
+                                                              "title":  "Adults active at least once a week, 2025 (%)",
+                                                              "titleFontSize":  11,
+                                                              "titleColor":  "#405148",
+                                                              "titlePadding":  10,
+                                                              "labelFontSize":  11,
+                                                              "labelColor":  "#405148",
+                                                              "values":  [
+                                                                             65,
+                                                                             70,
+                                                                             75,
+                                                                             80
+                                                                         ],
+                                                              "grid":  false,
+                                                              "domainColor":  "#87948d",
+                                                              "tickColor":  "#87948d"
+                                                          }
+                                             },
+                                       "y":  {
+                                                 "field":  "volunteer_pct",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           },
+                                                 "axis":  {
+                                                              "title":  "Volunteered through an organisation, 2025 (%)",
+                                                              "titleFontSize":  11,
+                                                              "titleColor":  "#405148",
+                                                              "titlePadding":  10,
+                                                              "labelFontSize":  11,
+                                                              "labelColor":  "#405148",
+                                                              "values":  [
+                                                                             20,
+                                                                             22,
+                                                                             24,
+                                                                             26,
+                                                                             28
+                                                                         ],
+                                                              "grid":  false,
+                                                              "domain":  false,
+                                                              "ticks":  false
+                                                          }
+                                             },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "state",
+                                                           "type":  "nominal",
+                                                           "title":  "State or territory"
+                                                       },
+                                                       {
+                                                           "field":  "active_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Active at least weekly (%)",
+                                                           "format":  ".1f"
+                                                       },
+                                                       {
+                                                           "field":  "volunteer_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Volunteered through an organisation (%)",
+                                                           "format":  ".1f"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.label_side === \u0027right\u0027"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold"
+                               },
+                      "encoding":  {
+                                       "color":  {
+                                                     "field":  "state_code",
+                                                     "type":  "nominal",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  "NSW",
+                                                                                  "VIC",
+                                                                                  "QLD",
+                                                                                  "SA",
+                                                                                  "WA",
+                                                                                  "TAS",
+                                                                                  "NT",
+                                                                                  "ACT"
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#4e79a7",
+                                                                                 "#f28e2b",
+                                                                                 "#9c755f",
+                                                                                 "#8d8d8d",
+                                                                                 "#c99a00",
+                                                                                 "#8f6bb3",
+                                                                                 "#c2378f",
+                                                                                 "#3f3f52"
+                                                                             ]
+                                                               },
+                                                     "legend":  null
+                                                 },
+                                       "x":  {
+                                                 "field":  "label_x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "label_y",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "state_code"
+                                                }
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.label_side === \u0027left\u0027"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "right",
+                                   "baseline":  "middle",
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold"
+                               },
+                      "encoding":  {
+                                       "color":  {
+                                                     "field":  "state_code",
+                                                     "type":  "nominal",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  "NSW",
+                                                                                  "VIC",
+                                                                                  "QLD",
+                                                                                  "SA",
+                                                                                  "WA",
+                                                                                  "TAS",
+                                                                                  "NT",
+                                                                                  "ACT"
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#4e79a7",
+                                                                                 "#f28e2b",
+                                                                                 "#9c755f",
+                                                                                 "#8d8d8d",
+                                                                                 "#c99a00",
+                                                                                 "#8f6bb3",
+                                                                                 "#c2378f",
+                                                                                 "#3f3f52"
+                                                                             ]
+                                                               },
+                                                     "legend":  null
+                                                 },
+                                       "x":  {
+                                                 "field":  "label_x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "label_y",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "state_code"
+                                                }
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.label_side === \u0027below\u0027"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "center",
+                                   "baseline":  "top",
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold"
+                               },
+                      "encoding":  {
+                                       "color":  {
+                                                     "field":  "state_code",
+                                                     "type":  "nominal",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  "NSW",
+                                                                                  "VIC",
+                                                                                  "QLD",
+                                                                                  "SA",
+                                                                                  "WA",
+                                                                                  "TAS",
+                                                                                  "NT",
+                                                                                  "ACT"
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#4e79a7",
+                                                                                 "#f28e2b",
+                                                                                 "#9c755f",
+                                                                                 "#8d8d8d",
+                                                                                 "#c99a00",
+                                                                                 "#8f6bb3",
+                                                                                 "#c2378f",
+                                                                                 "#3f3f52"
+                                                                             ]
+                                                               },
+                                                     "legend":  null
+                                                 },
+                                       "x":  {
+                                                 "field":  "label_x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "label_y",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "state_code"
+                                                }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "x":  72.6,
+                                                      "y":  20.3,
+                                                      "label":  "Correlation across states: r = 0.01"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "center",
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold",
+                                   "color":  "#405148"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              65,
+                                                                              80
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "y",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20,
+                                                                              28
+                                                                          ],
+                                                               "zero":  false,
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               }
+}

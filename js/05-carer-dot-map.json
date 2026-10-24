@@ -1,144 +1,255 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Dot-density map showing where Australians who provide unpaid care live.",
-  "width": "container",
-  "height": 300,
-  "autosize": {
-    "type": "fit-x",
-    "contains": "padding",
-    "resize": true
-  },
-  "padding": {
-    "left": 0,
-    "right": 0,
-    "top": 4,
-    "bottom": 8
-  },
-  "projection": {
-    "type": "mercator"
-  },
-  "layer": [
-    {
-      "data": {
-        "url": "data/australia-states.topojson",
-        "format": {
-          "type": "topojson",
-          "feature": "STE_2021_AUST_GDA2020"
-        }
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "#edf1ed",
-        "stroke": "#ffffff",
-        "strokeWidth": 1.2
-      }
-    },
-    {
-      "data": {
-        "url": "data/carer_dots.csv",
-        "format": {
-          "type": "csv"
-        }
-      },
-      "transform": [
-        {
-          "lookup": "region",
-          "from": {
-            "data": {
-              "url": "data/census_unpaid_by_region.csv",
-              "format": {
-                "type": "csv"
-              }
-            },
-            "key": "region",
-            "fields": [
-              "state_code",
-              "unpaid_carers",
-              "unpaid_carer_pct",
-              "total_people"
-            ]
-          }
-        }
-      ],
-      "mark": {
-        "type": "circle",
-        "size": 15,
-        "fill": "#009E73",
-        "opacity": 0.82
-      },
-      "encoding": {
-        "longitude": {
-          "field": "lon",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "lat",
-          "type": "quantitative"
-        },
-        "tooltip": [
-          {
-            "field": "region",
-            "type": "nominal",
-            "title": "Region"
-          },
-          {
-            "field": "area_type",
-            "type": "nominal",
-            "title": "Area type"
-          },
-          {
-            "field": "unpaid_carers",
-            "type": "quantitative",
-            "title": "People providing unpaid care",
-            "format": ",.0f"
-          },
-          {
-            "field": "unpaid_carer_pct",
-            "type": "quantitative",
-            "title": "Share providing unpaid care (%)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "longitude": 113.5,
-            "latitude": -13.4,
-            "label": "Each dot = 5,000 carers"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "baseline": "middle",
-        "dx": -12,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#405148"
-      },
-      "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        }
-      }
-    }
-  ],
-  "config": {
-    "font": "Arial",
-    "view": {
-      "stroke": null
-    }
-  }
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Dot-density map showing where Australians who provide unpaid care live.",
+    "width":  "container",
+    "height":  300,
+    "autosize":  {
+                     "type":  "fit-x",
+                     "contains":  "padding",
+                     "resize":  true
+                 },
+    "padding":  {
+                    "left":  0,
+                    "right":  0,
+                    "top":  4,
+                    "bottom":  8
+                },
+    "params":  [
+                   {
+                       "name":  "state_filter",
+                       "value":  "All",
+                       "bind":  {
+                                    "input":  "select",
+                                    "name":  "State or territory: ",
+                                    "options":  [
+                                                    "All",
+                                                    "NSW",
+                                                    "VIC",
+                                                    "QLD",
+                                                    "SA",
+                                                    "WA",
+                                                    "TAS",
+                                                    "NT",
+                                                    "ACT"
+                                                ],
+                                    "labels":  [
+                                                   "All of Australia",
+                                                   "New South Wales",
+                                                   "Victoria",
+                                                   "Queensland",
+                                                   "South Australia",
+                                                   "Western Australia",
+                                                   "Tasmania",
+                                                   "Northern Territory",
+                                                   "Australian Capital Territory"
+                                               ]
+                                }
+                   },
+                   {
+                       "name":  "area_filter",
+                       "value":  "All",
+                       "bind":  {
+                                    "input":  "radio",
+                                    "name":  "Area: ",
+                                    "options":  [
+                                                    "All",
+                                                    "Capital city",
+                                                    "Rest of state"
+                                                ],
+                                    "labels":  [
+                                                   "All areas",
+                                                   "Capital cities",
+                                                   "Rest of state"
+                                               ]
+                                }
+                   }
+               ],
+    "projection":  {
+                       "type":  "mercator"
+                   },
+    "layer":  [
+                  {
+                      "data":  {
+                                   "url":  "data/australia-states.topojson",
+                                   "format":  {
+                                                  "type":  "topojson",
+                                                  "feature":  "STE_2026_AUST_GDA2020"
+                                              }
+                               },
+                      "mark":  {
+                                   "type":  "geoshape",
+                                   "fill":  "#edf1ed",
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  1.2
+                               },
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.properties.STE_NAME26 !== \u0027Other Territories\u0027 \u0026\u0026 datum.properties.STE_NAME26 !== \u0027Outside Australia\u0027"
+                                        }
+                                    ]
+                  },
+                  {
+                      "data":  {
+                                   "url":  "data/carer_dots.csv",
+                                   "format":  {
+                                                  "type":  "csv"
+                                              }
+                               },
+                      "transform":  [
+                                        {
+                                            "lookup":  "region",
+                                            "from":  {
+                                                         "data":  {
+                                                                      "url":  "data/census_unpaid_by_region.csv",
+                                                                      "format":  {
+                                                                                     "type":  "csv"
+                                                                                 }
+                                                                  },
+                                                         "key":  "region",
+                                                         "fields":  [
+                                                                        "state_code",
+                                                                        "unpaid_carers",
+                                                                        "unpaid_carer_pct",
+                                                                        "total_people"
+                                                                    ]
+                                                     }
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "circle",
+                                   "size":  15
+                               },
+                      "encoding":  {
+                                       "opacity":  {
+                                                       "condition":  {
+                                                                         "test":  "(state_filter === \u0027All\u0027 || datum.state_code === state_filter) \u0026\u0026 (area_filter === \u0027All\u0027 || datum.area_type === area_filter)",
+                                                                         "value":  0.85
+                                                                     },
+                                                       "value":  0.7
+                                                   },
+                                       "longitude":  {
+                                                         "field":  "lon",
+                                                         "type":  "quantitative"
+                                                     },
+                                       "latitude":  {
+                                                        "field":  "lat",
+                                                        "type":  "quantitative"
+                                                    },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "region",
+                                                           "type":  "nominal",
+                                                           "title":  "Region"
+                                                       },
+                                                       {
+                                                           "field":  "area_type",
+                                                           "type":  "nominal",
+                                                           "title":  "Area type"
+                                                       },
+                                                       {
+                                                           "field":  "unpaid_carers",
+                                                           "type":  "quantitative",
+                                                           "title":  "People providing unpaid care",
+                                                           "format":  ",.0f"
+                                                       },
+                                                       {
+                                                           "field":  "unpaid_carer_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Share providing unpaid care (%)",
+                                                           "format":  ".1f"
+                                                       }
+                                                   ],
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "(state_filter === \u0027All\u0027 || datum.state_code === state_filter) \u0026\u0026 (area_filter === \u0027All\u0027 || datum.area_type === area_filter)",
+                                                                       "value":  "#009E73"
+                                                                   },
+                                                     "value":  "#c9d0ca"
+                                                 }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "url":  "data/census_unpaid_by_region.csv",
+                                   "format":  {
+                                                  "type":  "csv",
+                                                  "parse":  {
+                                                                "unpaid_carers":  "number"
+                                                            }
+                                              }
+                               },
+                      "transform":  [
+                                        {
+                                            "calculate":  "(state_filter === \u0027All\u0027 || datum.state_code === state_filter) \u0026\u0026 (area_filter === \u0027All\u0027 || datum.area_type === area_filter) ? datum.unpaid_carers : 0",
+                                            "as":  "selected_value"
+                                        },
+                                        {
+                                            "aggregate":  [
+                                                              {
+                                                                  "op":  "sum",
+                                                                  "field":  "selected_value",
+                                                                  "as":  "selected_carers"
+                                                              }
+                                                          ]
+                                        },
+                                        {
+                                            "calculate":  "datum.selected_carers \u003e 0 ? \u0027Selected: \u0027 + format(datum.selected_carers, \u0027,\u0027) + \u0027 carers\u0027 : \u0027No region matches this filter\u0027",
+                                            "as":  "label"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold",
+                                   "color":  "#009E73"
+                               },
+                      "encoding":  {
+                                       "text":  {
+                                                    "field":  "label"
+                                                },
+                                       "x":  {
+                                                 "value":  0
+                                             },
+                                       "y":  {
+                                                 "value":  30
+                                             }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "label":  "Each dot = 5,000 carers"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold",
+                                   "color":  "#405148"
+                               },
+                      "encoding":  {
+                                       "text":  {
+                                                    "field":  "label"
+                                                },
+                                       "x":  {
+                                                 "value":  0
+                                             },
+                                       "y":  {
+                                                 "value":  12
+                                             }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               }
 }

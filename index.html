@@ -6,6 +6,9 @@
 
   <title>Everyday Life in Australia</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -16,7 +19,7 @@
 </head>
 
 <body>
-  <header class="hero">
+  <header class="hero" id="top">
   <div class="hero-inner">
     <p class="eyebrow">A DATA STORY - AUSTRALIA - 2006-2025</p>
 
@@ -30,7 +33,7 @@
     </p>
 
     <p class="hero-byline">
-      By Woo Chee Zhong - October 2026
+      By Woo Chee Zhong · Updated 24 October 2026
     </p>
 
     <div class="hero-metrics">
@@ -52,6 +55,20 @@
   </div>
 </header>
 
+  <nav class="site-nav" aria-label="Story sections">
+    <div class="site-nav-inner">
+      <a class="site-nav-title" href="#top">Everyday Life in Australia</a>
+
+      <ul>
+        <li><a href="#everyday-contribution">1. Volunteering</a></li>
+        <li><a href="#unpaid-care">2. Care</a></li>
+        <li><a href="#recreation-and-time">3. Activity</a></li>
+        <li><a href="#connection-and-takeaway">4. Connections</a></li>
+        <li><a href="#about-the-data">Data</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <main>
     <section id="everyday-contribution">
       <div class="chart-one-layout">
@@ -72,8 +89,15 @@
     </p>
 
     <p>
-      Formal volunteering remains an important part of everyday community
-      life, even as the way Australians give their time continues to change.
+      Even so, about <strong>5 million Australians</strong> still volunteered through an organisation in 2025. Together they gave 618 million hours, up from 490 million in 2020.
+    </p>
+
+    <p>
+      The most common reasons for not volunteering are lack of time (47%) and lack of interest (36%).
+    </p>
+
+    <p>
+      Volunteering peaks among people aged <strong>45 to 54 (28.0%)</strong> and is lowest among 25 to 34 year olds (13.1%).
     </p>
 
     <p class="story-note">
@@ -99,7 +123,7 @@
     <li>Hover a dot for the exact value</li>
   </ul>
 
-  <div id="chart-1"></div>
+  <div id="chart-1" class="chart-canvas"></div>
 
   <div class="chart-footer">
     <p class="chart-takeaway">
@@ -158,9 +182,7 @@
     <h3>How many people help and how common is it?</h3>
 
     <p>
-      Everyday help includes support given outside an organisation.
-      Looking at both numbers and percentages helps us understand how
-      this support varies across Australia.
+      Everyday help, or informal volunteering, is unpaid support given to people outside your household, other than family, and not through an organisation.
     </p>
 
     <p>
@@ -175,15 +197,19 @@
     </p>
 
     <p>
-      The percentage ranges from <strong>27.8% in Tasmania</strong> to
-      <strong>38.0% in the Northern Territory</strong> a difference of
-      10.2 percentage points.
+      The rate ranges from <strong>27.8% in Tasmania</strong> to <strong>38.0% in the Northern Territory</strong>, a difference of 10.2 percentage points.
+    </p>
+
+    <p>
+      <strong>Informal help is more common than organised volunteering</strong> in every state and territory. Nationally, 29.5% helped informally in just four weeks, against 22.6% who volunteered through an organisation over a whole year.
+    </p>
+
+    <p>
+      Since 2020, informal help has fallen in six of the eight states and territories. Only South Australia (28.9% to 29.3%) and the <strong>Northern Territory (36.2% to 38.0%)</strong> rose.
     </p>
 
     <p class="story-note">
-      <strong>Why this matters:</strong> A small circle does not mean
-      helping is uncommon. Read its colour alongside its size to understand
-      both the scale of support and participation.
+      <strong>Why this matters:</strong> A small circle does not mean helping is uncommon. Planning by population size alone would miss the places where helping is most common.
     </p>
   </div>
 </div>
@@ -250,6 +276,14 @@
         times as many.
       </p>
 
+      <p>
+        Volunteering also rises with distance from the cities: <strong>20.9% in major cities</strong>, 26.7% in inner regional areas, 28.0% in outer regional areas and <strong>34.0% in remote areas</strong>.
+      </p>
+
+      <p>
+        Victoria has the lowest rate (21.8%), yet it has the second-largest number of formal volunteers, about <strong>1.25 million</strong>.
+      </p>
+
       <p class="story-note">
         <strong>Why this matters:</strong> Differences between places show
         that communities may need different approaches to support and
@@ -298,20 +332,11 @@
       <h3>All states recorded a decline</h3>
 
       <p>
-        Every line slopes downward between 2020 and 2025. This means formal
-        volunteering became less common in every Australian state and territory.
+        The ACT's fall of <strong>8.9 points</strong> took it from <strong>first place in 2020 to equal sixth</strong> in 2025, level with Queensland.
       </p>
 
       <p>
-        The ACT's fall of <strong>8.9 points</strong> took it from
-        <strong>first place in 2020 to equal sixth</strong> in 2025, level
-        with Queensland. Every other state or territory fell by between 0.8
-        and 3.4 points.
-      </p>
-
-      <p>
-        New South Wales changed least, slipping only 0.8 points (23.1% to
-        22.3%). Queensland had the second-largest fall, 3.4 points.
+        Elsewhere, falls ranged from 0.8 points in New South Wales (23.1% to 22.3%) to 3.4 points in Queensland.
       </p>
 
       <p>
@@ -319,6 +344,18 @@
         between highest and lowest shrank from <strong>7.8 points</strong>
         in 2020 to <strong>5.7 points</strong> in 2025, now Tasmania (27.5%)
         to Victoria (21.8%).
+      </p>
+
+      <p>
+        The ACT's fall went beyond organised volunteering. Its informal volunteering rate also dropped, from <strong>38.9% in 2020 to 28.5%</strong> in 2025, the largest fall of any state or territory.
+      </p>
+
+      <p>
+        As the ACT fell, Tasmania and the Northern Territory moved up to first and second. New South Wales rose from last place to fifth, simply by falling least.
+      </p>
+
+      <p>
+        Nationally, the rate went from 25% in 2020 to 22.6% in 2025. The ABS does not rate this national change as statistically significant.
       </p>
 
       <p class="story-note">
@@ -331,7 +368,7 @@
   </div>
     </section>
     
-    <section>
+    <section id="unpaid-care">
   <div class="chart-one-layout">
 
     <div class="chart-one-story">
@@ -346,15 +383,15 @@
       </p>
 
       <p>
-        Melbourne has the largest estimated number of unpaid carers
-        (<strong>505,817</strong>), followed by Sydney
-        (<strong>454,470</strong>).
+        Melbourne has the most unpaid carers (<strong>505,817</strong>), more than Sydney (<strong>454,470</strong>) despite its smaller population.
       </p>
 
       <p>
-        Melbourne has more carers than Sydney despite a smaller population.
-        As a share of residents, <strong>12.6% of Melburnians</strong> provide
-        care, against 10.6% in Sydney.
+        As a share of residents, <strong>12.6% of Melburnians</strong> provide care, against 10.6% in Sydney.
+      </p>
+
+      <p>
+        Together, Sydney and Melbourne are home to about <strong>960,000 carers</strong>, close to two in five of the national total.
       </p>
 
       <p class="story-note">
@@ -378,15 +415,15 @@
     <li>Dots sit inside the region where carers live</li>
     <li>Denser clusters mean more carers</li>
     <li>Dots show totals, not exact addresses</li>
+    <li>Filter with the menus below; grey dots are not selected</li>
   </ul>
 
       <div id="chart-5" class="chart-canvas"></div>
 
       <div class="chart-footer">
     <p class="chart-takeaway">
-        <strong>Takeaway:</strong> The largest numbers of unpaid carers are in
-        Melbourne and Sydney, reflecting their larger populations.
-      </p>
+      <strong>Takeaway:</strong> The largest numbers of unpaid carers are in Melbourne and Sydney, Australia's two biggest cities.
+    </p>
 
     <p class="chart-source">
         Source: Australian Bureau of Statistics, Census 2021. People providing
@@ -443,6 +480,18 @@
         higher</strong>. In
         five of the six other states, the capital is above the rest of
         the state. New South Wales is the exception.
+      </p>
+
+      <p>
+        Elsewhere, every region sits between 24.3% (rest of South Australia) and 29.1% (Perth), a range of just 4.8 points.
+      </p>
+
+      <p>
+        Rates and numbers differ here too. Sydney has the lowest capital rate (25.2%), yet more than <strong>1 million people</strong> there gave unpaid childcare.
+      </p>
+
+      <p>
+        The widest gap outside the Territory is in South Australia: Adelaide (27.1%) against 24.3% in the rest of the state.
       </p>
 
       <p class="story-note">
@@ -505,14 +554,20 @@
       </p>
 
       <p>
-        The pattern changes among older Australians. From age 80, men are more
-        likely than women to provide unpaid care, showing that caring
-        responsibilities do not follow one fixed pattern across the life course.
+        The pattern reverses among the oldest Australians. From age 80, men are more likely than women to provide care, and at 85 and over they are <strong>more than twice as likely</strong> (9.7% against 4.6%).
+      </p>
+
+      <p>
+        Women's rate more than quadruples, from 5.2% at ages 15-19 to 23.1% at 55-59. Men's rate is steadier, staying between 11% and 15% from their mid-40s to their early 80s.
+      </p>
+
+      <p>
+        Men's caring also peaks at ages 55-59 (14.8%), the same stage of life as women's.
       </p>
 
       <p class="story-note">
         <strong>Why this matters:</strong> Women in mid-to-later adulthood are
-        especially likely to carry unpaid care while also being in working age.
+        especially likely to carry unpaid care while also of working age.
         Flexible leave, respite services and accessible local support can help reduce
         the pressure on people balancing care with employment and family
         responsibilities.
@@ -572,6 +627,14 @@
         recording higher rates of unpaid help to others.
       </p>
 
+      <p>
+        <strong>Unpaid help to others is the most common form of giving</strong> everywhere, from 42.6% in New South Wales to 49.0% in the Northern Territory.
+      </p>
+
+      <p>
+        Tasmania is the only place where formal and informal volunteering are almost equal (27.5% and 27.8%). Elsewhere, informal help leads by at least 5.7 points.
+      </p>
+
       <p class="story-note">
         <strong>Why this matters:</strong> A single volunteering measure can miss
         important unpaid support happening outside organisations. Looking across all
@@ -599,7 +662,7 @@
       <p>
         Being active is close to universal: <strong>86% of adults</strong>
         did some sport or physical activity in 2025. Around seven in ten are
-        active every week, but only about one in five every day.
+        active every week, half (50.1%) three times a week, but only about one in five every day.
       </p>
 
       <p>
@@ -610,8 +673,11 @@
       </p>
 
       <p>
-        People aged 65 and over rank last at most steps, but from four to six
-        times a week they move ahead of adults aged 35-44.
+        People aged 65 and over rank last at most steps, yet <strong>61.8%</strong> are still active weekly. From four to six times a week, they move ahead of adults aged 35-44.
+      </p>
+
+      <p>
+        Men and women are equally likely to be active weekly (68.9% and 68.8%).
       </p>
 
       <p class="story-note">
@@ -715,6 +781,10 @@
         team sport, and yoga (1.1 million) sits just behind football.
       </p>
 
+      <p>
+        Racquet sports and golf together draw about <strong>3.0 million adults</strong>, led by tennis (1.1 million) and golf (1.0 million).
+      </p>
+
       <p class="story-note">
         <strong>Why this matters:</strong> Most adults stay active through
         footpaths, trails, pools and gyms rather than club competitions.
@@ -761,15 +831,13 @@
       <h2>The ACT leads at every step</h2>
 
       <p>
-        <strong>The Australian Capital Territory ranks first</strong> whether
-        the bar is once a year (92.2%), once a week (78.3%) or three times a
-        week (59.2%). The Northern Territory is second on all three.
+        The Northern Territory is second at both levels, ahead of Western Australia and Victoria.
       </p>
 
       <p>
-        The gap between states widens as the bar rises. For activity at least
-        once a year, the spread from top to bottom is 8.3 points. For three
-        times a week, it is 11.3 points, from the ACT down to
+        The gap from top to bottom is the same at both levels:
+        <strong>11.3 points</strong>. Weekly, it runs from the ACT down to
+        South Australia (67.0%). At three times a week, it runs down to
         <strong>New South Wales (47.9%)</strong>.
       </p>
 
@@ -781,69 +849,355 @@
         a week (53.3% to 51.3%).
       </p>
 
+      <p>
+        Weekly activity is slightly higher in <strong>major cities (69.6%)</strong> than in regional and remote areas (65.8% to 67.0%), the reverse of the pattern for volunteering.
+      </p>
+
+      <p>
+        At three times a week, <strong>Western Australia (+4.2)</strong> and the Northern Territory (+4.0) also gained the most since 2024.
+      </p>
+
+      <p>
+        Even the lowest state is high: at least <strong>two in three adults</strong> were active weekly in every state and territory (67.0% to 78.3%).
+      </p>
+
       <p class="story-note">
-        <strong>Why this matters:</strong> Regular activity differs by more
-        than 10 points between states and territories. The data shows where
-        the gaps are, not what causes them,
-        so local factors such as facilities, climate and work patterns are worth
-        a closer look.
+        <strong>Why this matters:</strong> The data shows where activity is higher, not why. Local factors such as facilities, climate and work patterns are worth a closer look.
+      </p>
+    </div>
+  </div>
+
+  <div class="map-story-layout">
+    <div class="chart-panel">
+      <h3 class="chart-heading">
+        How do Australians take part in activity?
+      </h3>
+
+      <p class="chart-description">
+        How adults took part in sport or physical activity in 2025.
+        Organised activity is run by a club, gym class or association;
+        informal activity is done on your own schedule.
+      </p>
+
+      <ul class="chart-reading">
+        <li>Each square is 1% of adults</li>
+        <li>Pink is informal only; yellow is both kinds</li>
+        <li>Blue is organised only; grey is not active</li>
+        <li>Hover a square or legend item to highlight a group</li>
+      </ul>
+
+      <div id="chart-12" class="chart-canvas"></div>
+
+      <div class="chart-footer">
+        <p class="chart-takeaway">
+          <strong>Takeaway:</strong> Informal activity is how most people
+          stay active. Only 6.5% of adults take part through organised
+          activity alone.
+        </p>
+
+        <p class="chart-source">
+          Source: Australian Sports Commission, AusPlay National Data Tables,
+          January-December 2025, Tables 1 and 3. Squares are rounded to whole
+          per cent and sum to 100.
+        </p>
+      </div>
+    </div>
+
+    <div class="map-story">
+      <h2>Clubs add to activity, rarely replace it</h2>
+
+      <p>
+        <strong>Almost four in five adults (78.9%)</strong> do at least some
+        informal activity. Just 42.0% do any organised activity.
+      </p>
+
+      <p>
+        Clubs and classes rarely stand alone. About <strong>85% of people
+        in organised activity</strong> also exercise informally (35.5% of
+        adults out of 42.0%).
+      </p>
+
+      <p>
+        <strong>Organised activity fades with age.</strong> It reaches 59.8%
+        of teenagers aged 15-17, but only 29.5% of people aged 65 and over.
+      </p>
+
+      <p>
+        Men are more likely to exercise only informally (45.3% against 41.6%), while women are slightly more likely to join organised activity (43.1% against 40.9%).
+      </p>
+
+      <p>
+        People aged 65 and over are the most likely to rely <strong>only on organised activity</strong> (7.6%), such as classes or clubs.
+      </p>
+
+      <p>
+        Informal-only activity almost doubles with age, from <strong>26.6% of teenagers</strong> aged 15-17 to 51.8% of people aged 55-64.
+      </p>
+
+      <p>
+        Teenagers are the most likely to mix both kinds: more than half (53.1%) combine organised and informal activity.
+      </p>
+
+      <p class="story-note">
+        <strong>Why this matters:</strong> Clubs reach younger people best,
+        but most adults rely on time and places they choose themselves.
       </p>
     </div>
   </div>
 </section>
 
-  </main>
+    <section id="connection-and-takeaway">
+  <div class="chart-one-layout">
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div>
-        <h2>About the data</h2>
-        <p>
-          <strong>Author:</strong> Woo Chee Zhong<br>
-          <strong>Published:</strong> October 2026<br>
-          <strong>Unit:</strong> FIT3179 Data Visualisation, Monash University<br>
-          <strong>Built with:</strong> Vega-Lite and Vega
+    <div class="chart-one-story">
+      <p class="part-label">PART 4 - CONNECTION AND TAKEAWAY</p>
+
+      <h2>Are active places also giving places?</h2>
+
+      <p>
+        Together, the data shows how volunteering, care and recreation shape
+        community life differently across Australia.
+      </p>
+
+      <p>
+        Sport and volunteering do meet. <strong>One in three formal
+        volunteers (33.3%)</strong> gives time to a sport or recreation
+        organisation, more than any other kind of group.
+      </p>
+
+      <p>
+        But at the state level, being active does not predict giving time.
+        Across the eight states and territories, the two measures are
+        <strong>almost unrelated</strong>: the correlation is close to zero.
+      </p>
+
+      <p>
+        The eight places split evenly, <strong>two in each quarter</strong> of the chart. Only the Northern Territory and Western Australia sit above the middle on both measures.
+      </p>
+
+      <p>
+        The Northern Territory stands out across this story. It is above the national rate for all three kinds of giving, second for weekly activity and highest for childcare outside Darwin.
+      </p>
+
+      <p class="story-note">
+        <strong>Why this matters:</strong> Each place has its own mix of
+        habits. Support for volunteering and for activity needs to be
+        planned separately, not assumed to rise together.
+      </p>
+    </div>
+
+    <div class="chart-one-card">
+      <h3 class="chart-heading">
+        Are active states also more likely to volunteer?
+      </h3>
+
+      <p class="chart-description">
+        Weekly physical activity and formal volunteering for each state and
+        territory, 2025.
+      </p>
+
+      <ul class="chart-reading">
+        <li>Each dot is a state or territory</li>
+        <li>Further right means more adults active weekly</li>
+        <li>Higher means more adults volunteer</li>
+        <li>Dashed lines mark the middle state on each measure</li>
+      </ul>
+
+      <div id="chart-13" class="chart-canvas"></div>
+
+      <div class="chart-footer">
+        <p class="chart-takeaway">
+          <strong>Takeaway:</strong> There is no simple link. The ACT is the
+          most active but volunteers below the middle, while Tasmania
+          volunteers most with middling activity. The chart shows a pattern
+          between places, not that exercise causes volunteering.
+        </p>
+
+        <p class="chart-source">
+          Sources: AusPlay National Data Tables, January-December 2025,
+          Table 34 (active at least once a week); ABS General Social Survey
+          2025, Table 6.3 (formal volunteering); Volunteering Australia, GSS
+          2025 report (sport and recreation share).
         </p>
       </div>
+    </div>
+  </div>
 
-      <div>
-        <h2>Data sources</h2>
-        <ul>
-          <li>
-            Australian Bureau of Statistics, <em>General Social Survey:
-            Summary Results, Australia</em>, 2014-2025 (Tables 6.1 and 6.3).
-            Charts 1-4 and 8.
-          </li>
-          <li>
-            Volunteering Australia, <em>Volunteering Statistics: General
-            Social Survey 2025</em> (May 2026), Table 6 and Figure 2.
-            Charts 1, 3 and 4.
-          </li>
-          <li>
-            Australian Bureau of Statistics, <em>Voluntary Work,
-            Australia, 2010</em> (cat. 4441.0): 2006 and 2010 rates, people
-            aged 18 and over. Chart 1.
-          </li>
-          <li>
-            Australian Bureau of Statistics, <em>Census of Population and
-            Housing</em>, 2021: unpaid assistance and unpaid childcare.
-            Charts 5-7.
-          </li>
-          <li>
-            Australian Sports Commission, <em>AusPlay National Data Tables</em>,
-            2024 and January-December 2025 (Tables 1, 9 and 34). Charts 9
-            and 11, and the 86% headline figure.
-          </li>
-          <li>
-            Australian Sports Commission, <em>AusPlay By Sport Data Tables</em>,
-            January-December 2025 (Table 1). Chart 10.
-          </li>
-          <li>
-            Australian Bureau of Statistics, <em>Australian Statistical
-            Geography Standard (ASGS) Edition 3</em>, digital boundary files,
-            simplified with Mapshaper. Map outlines in charts 2, 5 and 6.
-          </li>
-        </ul>
+  <div class="summary-grid">
+    <article class="summary-card volunteering-summary">
+      <h3>Volunteering</h3>
+      <p>
+        Fewer Australians volunteer than in 2010, but those who do gave more
+        hours in 2025 than in 2020. Rates are highest in Tasmania, the
+        Northern Territory and outside the major cities.
+      </p>
+    </article>
+
+    <article class="summary-card care-summary">
+      <h3>Care</h3>
+      <p>
+        2.5 million Australians are unpaid carers. Women carry more of it
+        through most of adult life, and the Northern Territory outside Darwin
+        stands out for childcare.
+      </p>
+    </article>
+
+    <article class="summary-card activity-summary">
+      <h3>Activity</h3>
+      <p>
+        86% of adults are active, mostly on their own schedule. The ACT is
+        the most active, but being active does not predict volunteering.
+      </p>
+    </article>
+  </div>
+
+  <p class="closing-statement">
+    Everyday life in Australia runs on time freely given. Who gives it, and
+    how, depends on where you live, how old you are and your gender.
+  </p>
+</section>
+
+  </main>
+
+  <footer class="site-footer" id="about-the-data">
+    <div class="footer-inner">
+      <div class="footer-heading">
+        <p class="part-label">ABOUT THE DATA</p>
+        <h2>Where the numbers come from</h2>
+      </div>
+
+      <div class="footer-columns">
+        <div>
+          <p class="footer-credit">
+            <strong>Author:</strong> Woo Chee Zhong<br>
+            <strong>FIT3179 - Monash University Malaysia</strong><br>
+            Updated 24 October 2026<br>
+            <a href="https://github.com/WooCheeZhong/Data-Visualisation-2">Project repository (GitHub)</a>
+          </p>
+
+          <h3>Sources</h3>
+
+          <p>
+            <strong>Volunteering:</strong> Australian Bureau of Statistics,
+            <a href="https://www.abs.gov.au/statistics/people/people-and-communities/general-social-survey-summary-results-australia/latest-release">General
+            Social Survey: Summary Results, Australia, 2025</a>, released
+            6 May 2026. A household survey of people aged 15 and over.
+            Tables 6.1 and 6.3 (formal and informal volunteering, unpaid help,
+            by state). Used in charts 2, 3, 4, 8 and 13.
+          </p>
+
+          <p>
+            Volunteering Australia,
+            <a href="https://www.volunteeringaustralia.org/wp-content/uploads/VA-GSS-Report-FINAL.pdf">Volunteering
+            Statistics: General Social Survey 2025</a> (May 2026). Analysis
+            of the ABS survey. Figure 2 (long-term trend), Table 6 (state
+            rates for 2020 and 2025) and the share volunteering in sport and
+            recreation. Used in charts 1, 3, 4 and 13.
+          </p>
+
+          <p>
+            Australian Bureau of Statistics,
+            <a href="https://www.abs.gov.au/ausstats/abs@.nsf/mf/4441.0">Voluntary
+            Work, Australia, 2010</a> (cat. 4441.0). The 2006 and 2010 rates,
+            for people aged 18 and over. Used in chart 1.
+          </p>
+
+          <p>
+            <strong>Care:</strong> Australian Bureau of Statistics,
+            <a href="https://www.abs.gov.au/statistics/people/people-and-communities/unpaid-work-and-care-census/latest-release">Unpaid
+            work and care: Census, 2021</a>. Unpaid assistance to a person
+            with disability, a long-term health condition or old age, and
+            unpaid childcare, in the two weeks before Census night. By
+            Greater Capital City Statistical Area (each capital and the rest
+            of its state), and by age and sex. Used in charts 5, 6 and 7.
+          </p>
+
+          <p>
+            <strong>Activity:</strong> Australian Sports Commission,
+            <a href="https://www.ausport.gov.au/clearinghouse/research/ausplay/results">AusPlay
+            National Data Tables</a>, January-December 2024 and
+            January-December 2025 (released 30 April 2026). Tables 1, 3, 9
+            and 34. Used in charts 9, 11, 12 and 13.
+          </p>
+
+          <p>
+            Australian Sports Commission,
+            <a href="https://www.ausport.gov.au/clearinghouse/research/ausplay/results">AusPlay
+            By Sport Data Tables</a>, January-December 2025, Table 1
+            (participation by activity, adults 15+). Used in chart 10.
+          </p>
+
+          <p>
+            <strong>Maps:</strong> Australian Bureau of Statistics,
+            <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/latest-release">ASGS
+            Edition 4 (July 2026 - June 2031)</a>, released 22 July 2026,
+            States and Territories 2026 (GDA2020), simplified with
+            <a href="https://mapshaper.org">Mapshaper</a>. Used in charts
+            2, 5 and 6.
+          </p>
+
+          <p>
+            ABS material is used under the Creative Commons Attribution 4.0
+            licence.
+          </p>
+        </div>
+
+        <div>
+          <h3>Notes</h3>
+
+          <p>
+            Most figures are estimates from sample surveys (the General
+            Social Survey and AusPlay), not counts. Small gaps between states,
+            or between 2024 and 2025, may fall within sampling error. The ABS
+            found no statistically significant change in national formal
+            volunteering between 2020 and 2025.
+          </p>
+
+          <p>
+            The volunteering trend in chart 1 joins two survey series. The
+            2006 and 2010 rates cover people aged 18 and over; later years
+            cover 15 and over, so part of the early fall reflects the change
+            in who was counted.
+          </p>
+
+          <p>
+            Care figures are 2021 Census counts. The ABS adjusts small
+            values to protect privacy, so regional totals can differ
+            slightly from the national total of 2,476,681 carers. In chart 5,
+            dots are spread within each region for illustration and do not
+            show where people live.
+          </p>
+
+          <p>
+            AusPlay moved to an online survey in July 2023, so 2024 and 2025
+            results should not be compared with earlier years. People can
+            take part in several activities, so the tiles in chart 10 add up
+            to more than the adult population. The waffle squares in chart 12
+            are rounded to whole per cent so that they sum to 100.
+          </p>
+
+          <p>
+            Chart 13 compares the eight states and territories, not
+            individual people. The correlation between the two measures,
+            calculated for this story, is close to zero (r = 0.01). It
+            describes places and does not show cause and effect.
+          </p>
+
+          <p>
+            Percentages are shown to one decimal place and may not add to
+            100 because of rounding. Every value can be checked against the
+            project data files in the <code>data</code> folder.
+          </p>
+
+          <h3>AI acknowledgement</h3>
+
+          <p>
+            Claude (Anthropic) was used to help debug the chart code and to
+            assist in extracting data from the sources listed on the left.
+            Grammarly was used to revise the text. All figures were checked
+            against the original sources.
+          </p>
+        </div>
       </div>
     </div>
   </footer>

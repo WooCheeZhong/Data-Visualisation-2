@@ -2,6 +2,9 @@ async function displayChart(containerId, specPath) {
   const response = await fetch(specPath);
   const chartSpec = await response.json();
 
+  // Wait for the web fonts so labels are measured and placed with the right font.
+  await document.fonts.ready;
+
   await vegaEmbed(containerId, chartSpec, {
     actions: false,
     renderer: "svg"
@@ -62,3 +65,42 @@ displayChart(
   "#chart-11",
   "js/11-activity-by-state.json"
 ).catch(console.error);
+
+displayChart(
+  "#chart-12",
+  "js/12-activity-waffle.json"
+).catch(console.error);
+
+displayChart(
+  "#chart-13",
+  "js/13-active-vs-volunteering.json"
+).catch(console.error);
+
+// Sticky section navigation: show the bar once the hero has scrolled away,
+// and fill in the link for the part currently being read.
+const nav = document.querySelector(".site-nav");
+const hero = document.querySelector(".hero");
+const navLinks = [...document.querySelectorAll(".site-nav ul a")];
+const navTargets = navLinks.map((link) => document.querySelector(link.getAttribute("href")));
+
+function updateNav() {
+  // Show the bar once the hero is about to leave the screen.
+  nav.classList.toggle("is-visible", hero.getBoundingClientRect().bottom <= 80);
+
+  // The current part is the last one whose top has passed 40% of the screen.
+  const line = window.innerHeight * 0.4;
+  let current = -1;
+  navTargets.forEach((target, i) => {
+    if (target && target.getBoundingClientRect().top <= line) current = i;
+  });
+
+  navLinks.forEach((link, i) => {
+    link.classList.toggle("is-active", i === current);
+    if (i === current) link.setAttribute("aria-current", "true");
+    else link.removeAttribute("aria-current");
+  });
+}
+
+window.addEventListener("scroll", updateNav, { passive: true });
+window.addEventListener("resize", updateNav);
+updateNav();

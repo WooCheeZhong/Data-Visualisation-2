@@ -1,273 +1,305 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Estimated number and percentage of Australians who gave informal help, by state and territory.",
-  "width": "container",
-  "height": 340,
-  "autosize": {
-    "type": "fit-x",
-    "contains": "padding",
-    "resize": true
-  },
-  "padding": {
-    "left": 0,
-    "right": 8,
-    "top": 0,
-    "bottom": 16
-  },
-  "projection": {
-    "type": "mercator"
-  },
-  "data": {
-    "values": [
-      {
-        "state_code": "WA",
-        "state": "Western Australia",
-        "longitude": 120.962,
-        "latitude": -24.437,
-        "label_longitude": 114.5,
-        "label_latitude": -21.5
-      },
-      {
-        "state_code": "NT",
-        "state": "Northern Territory",
-        "longitude": 133.5,
-        "latitude": -18.486,
-        "label_longitude": 129,
-        "label_latitude": -15.5
-      },
-      {
-        "state_code": "QLD",
-        "state": "Queensland",
-        "longitude": 145.773,
-        "latitude": -19.202,
-        "label_longitude": 147,
-        "label_latitude": -15.8
-      },
-      {
-        "state_code": "SA",
-        "state": "South Australia",
-        "longitude": 135.002,
-        "latitude": -32.028,
-        "label_longitude": 128.5,
-        "label_latitude": -35
-      },
-      {
-        "state_code": "NSW",
-        "state": "New South Wales",
-        "longitude": 150.049,
-        "latitude": -32.831,
-        "label_longitude": 151.3,
-        "label_latitude": -29.4
-      },
-      {
-        "state_code": "VIC",
-        "state": "Victoria",
-        "longitude": 145.469,
-        "latitude": -36.557,
-        "label_longitude": 139,
-        "label_latitude": -39.7
-      },
-      {
-        "state_code": "TAS",
-        "state": "Tasmania",
-        "longitude": 146.159,
-        "latitude": -41.549,
-        "label_longitude": 149,
-        "label_latitude": -43.5
-      },
-      {
-        "state_code": "ACT",
-        "state": "Australian Capital Territory",
-        "longitude": 149.08,
-        "latitude": -35.522,
-        "label_longitude": 151.7,
-        "label_latitude": -36.8
-      }
-    ]
-  },
-  "layer": [
-    {
-      "data": {
-        "url": "data/australia-states.topojson",
-        "format": {
-          "type": "topojson",
-          "feature": "STE_2021_AUST_GDA2020"
-        }
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "#edf1ed",
-        "stroke": "#ffffff",
-        "strokeWidth": 1.2
-      }
-    },
-    {
-      "transform": [
-        {
-          "lookup": "state_code",
-          "from": {
-            "data": {
-              "url": "data/state_contribution.csv",
-              "format": {
-                "type": "csv"
-              }
-            },
-            "key": "state_code",
-            "fields": [
-              "informal_volunteering_pct",
-              "informal_volunteering_thousands"
-            ]
-          }
-        },
-        {
-          "calculate": "datum.informal_volunteering_thousands * 1000",
-          "as": "informal_people"
-        },
-        {
-          "calculate": "format(datum.informal_volunteering_pct, '.1f') + '%'",
-          "as": "informal_share_label"
-        }
-      ],
-      "mark": {
-        "type": "circle",
-        "opacity": 1,
-        "stroke": "#ffffff",
-        "strokeWidth": 1.5
-      },
-      "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "color": {
-          "field": "informal_volunteering_pct",
-          "type": "quantitative",
-          "scale": {
-            "type": "linear",
-            "range": ["#FFF0D9", "#8C3900"],
-            "zero": false,
-            "nice": false
-          },
-          "legend": {
-            "title": [
-              "Share of residents",
-              "helping (%)"
-            ],
-            "orient": "left",
-            "direction": "vertical",
-            "gradientLength": 150,
-            "gradientThickness": 16,
-            "format": ".1f",
-            "offset": 8,
-            "labelFontSize": 11,
-            "titleFontSize": 12,
-            "labelColor": "#20322b",
-            "titleColor": "#20322b"
-          }
-        },
-        "size": {
-          "field": "informal_volunteering_thousands",
-          "type": "quantitative",
-          "scale": {
-            "domain": [0, 2100],
-            "range": [0, 2400]
-          },
-          "legend": {
-            "title": [
-              "Estimated people",
-              "(thousands)"
-            ],
-            "orient": "left",
-            "direction": "vertical",
-            "values": [100, 500, 1000, 2000],
-            "format": ",.0f",
-            "columns": 1,
-            "offset": 2,
-            "labelFontSize": 11,
-            "titleFontSize": 12,
-            "labelColor": "#20322b",
-            "titleColor": "#20322b",
-            "symbolFillColor": "#ffffff",
-            "symbolStrokeColor": "#60746A",
-            "symbolStrokeWidth": 1.5,
-            "symbolOpacity": 1
-          }
-        },
-        "tooltip": [
-          {
-            "field": "state",
-            "type": "nominal",
-            "title": "State or territory"
-          },
-          {
-            "field": "informal_people",
-            "type": "quantitative",
-            "title": "Estimated people helping",
-            "format": ",.0f"
-          },
-          {
-            "field": "informal_share_label",
-            "type": "nominal",
-            "title": "Share of residents helping"
-          }
-        ]
-      }
-    },
-    {
-      "mark": {
-        "type": "rule",
-        "color": "#60746A",
-        "strokeWidth": 1
-      },
-      "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "longitude2": {
-          "field": "label_longitude"
-        },
-        "latitude2": {
-          "field": "label_latitude"
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "baseline": "middle",
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#20322B"
-      },
-      "encoding": {
-        "longitude": {
-          "field": "label_longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "label_latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "state"
-        }
-      }
-    }
-  ],
-  "config": {
-    "font": "Arial",
-    "view": {
-      "stroke": null
-    }
-  }
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Estimated number and percentage of Australians who gave informal help, by state and territory.",
+    "width":  "container",
+    "height":  360,
+    "autosize":  {
+                     "type":  "fit-x",
+                     "contains":  "padding",
+                     "resize":  true
+                 },
+    "padding":  {
+                    "left":  0,
+                    "right":  56,
+                    "top":  0,
+                    "bottom":  90
+                },
+    "projection":  {
+                       "type":  "mercator"
+                   },
+    "data":  {
+                 "values":  [
+                                {
+                                    "state_code":  "WA",
+                                    "state":  "Western Australia",
+                                    "longitude":  120.962,
+                                    "latitude":  -24.437,
+                                    "label_longitude":  114.5,
+                                    "label_latitude":  -21.5
+                                },
+                                {
+                                    "state_code":  "NT",
+                                    "state":  "Northern Territory",
+                                    "longitude":  133.5,
+                                    "latitude":  -18.486,
+                                    "label_longitude":  129,
+                                    "label_latitude":  -15.5
+                                },
+                                {
+                                    "state_code":  "QLD",
+                                    "state":  "Queensland",
+                                    "longitude":  145.773,
+                                    "latitude":  -19.202,
+                                    "label_longitude":  147,
+                                    "label_latitude":  -15.8
+                                },
+                                {
+                                    "state_code":  "SA",
+                                    "state":  "South Australia",
+                                    "longitude":  135.002,
+                                    "latitude":  -32.028,
+                                    "label_longitude":  128.5,
+                                    "label_latitude":  -35
+                                },
+                                {
+                                    "state_code":  "NSW",
+                                    "state":  "New South Wales",
+                                    "longitude":  150.049,
+                                    "latitude":  -32.831,
+                                    "label_longitude":  151.3,
+                                    "label_latitude":  -29.4
+                                },
+                                {
+                                    "state_code":  "VIC",
+                                    "state":  "Victoria",
+                                    "longitude":  145.469,
+                                    "latitude":  -36.557,
+                                    "label_longitude":  139,
+                                    "label_latitude":  -39.7
+                                },
+                                {
+                                    "state_code":  "TAS",
+                                    "state":  "Tasmania",
+                                    "longitude":  146.159,
+                                    "latitude":  -41.549,
+                                    "label_longitude":  149,
+                                    "label_latitude":  -43.5
+                                },
+                                {
+                                    "state_code":  "ACT",
+                                    "state":  "Australian Capital Territory",
+                                    "longitude":  149.08,
+                                    "latitude":  -35.522,
+                                    "label_longitude":  150.9,
+                                    "label_latitude":  -36.8
+                                }
+                            ]
+             },
+    "layer":  [
+                  {
+                      "data":  {
+                                   "url":  "data/australia-states.topojson",
+                                   "format":  {
+                                                  "type":  "topojson",
+                                                  "feature":  "STE_2026_AUST_GDA2020"
+                                              }
+                               },
+                      "mark":  {
+                                   "type":  "geoshape",
+                                   "fill":  "#edf1ed",
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  1.2
+                               },
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.properties.STE_NAME26 !== \u0027Other Territories\u0027 \u0026\u0026 datum.properties.STE_NAME26 !== \u0027Outside Australia\u0027"
+                                        }
+                                    ]
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "lookup":  "state_code",
+                                            "from":  {
+                                                         "data":  {
+                                                                      "url":  "data/state_contribution.csv",
+                                                                      "format":  {
+                                                                                     "type":  "csv"
+                                                                                 }
+                                                                  },
+                                                         "key":  "state_code",
+                                                         "fields":  [
+                                                                        "informal_volunteering_pct",
+                                                                        "informal_volunteering_thousands"
+                                                                    ]
+                                                     }
+                                        },
+                                        {
+                                            "calculate":  "datum.informal_volunteering_thousands * 1000",
+                                            "as":  "informal_people"
+                                        },
+                                        {
+                                            "calculate":  "format(datum.informal_volunteering_pct, \u0027.1f\u0027) + \u0027%\u0027",
+                                            "as":  "informal_share_label"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "circle",
+                                   "opacity":  1,
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  1.5
+                               },
+                      "encoding":  {
+                                       "longitude":  {
+                                                         "field":  "longitude",
+                                                         "type":  "quantitative"
+                                                     },
+                                       "latitude":  {
+                                                        "field":  "latitude",
+                                                        "type":  "quantitative"
+                                                    },
+                                       "color":  {
+                                                     "field":  "informal_volunteering_pct",
+                                                     "type":  "quantitative",
+                                                     "scale":  {
+                                                                   "type":  "linear",
+                                                                   "range":  [
+                                                                                 "#FFF0D9",
+                                                                                 "#8C3900"
+                                                                             ],
+                                                                   "zero":  false,
+                                                                   "nice":  false
+                                                               },
+                                                     "legend":  {
+                                                                    "title":  [
+                                                                                  "Share of residents",
+                                                                                  "helping (%)"
+                                                                              ],
+                                                                    "orient":  "left",
+                                                                    "direction":  "vertical",
+                                                                    "gradientLength":  120,
+                                                                    "gradientThickness":  16,
+                                                                    "format":  ".1f",
+                                                                    "offset":  8,
+                                                                    "labelFontSize":  11,
+                                                                    "titleFontSize":  12,
+                                                                    "labelColor":  "#20322b",
+                                                                    "titleColor":  "#20322b"
+                                                                }
+                                                 },
+                                       "size":  {
+                                                    "field":  "informal_volunteering_thousands",
+                                                    "type":  "quantitative",
+                                                    "scale":  {
+                                                                  "domain":  [
+                                                                                 0,
+                                                                                 2100
+                                                                             ],
+                                                                  "range":  [
+                                                                                0,
+                                                                                2400
+                                                                            ]
+                                                              },
+                                                    "legend":  {
+                                                                   "orient":  "none",
+                                                                   "direction":  "horizontal",
+                                                                   "values":  [
+                                                                                  100,
+                                                                                  500,
+                                                                                  1000,
+                                                                                  2000
+                                                                              ],
+                                                                   "format":  ",.0f",
+                                                                   "labelFontSize":  11,
+                                                                   "titleFontSize":  12,
+                                                                   "labelColor":  "#20322b",
+                                                                   "titleColor":  "#20322b",
+                                                                   "symbolFillColor":  "#ffffff",
+                                                                   "symbolStrokeColor":  "#60746A",
+                                                                   "symbolStrokeWidth":  1.5,
+                                                                   "symbolOpacity":  1,
+                                                                   "title":  "Estimated people helping (thousands)",
+                                                                   "columnPadding":  22,
+                                                                   "labelOffset":  6,
+                                                                   "offset":  18,
+                                                                   "legendX":  -90,
+                                                                   "legendY":  378
+                                                               }
+                                                },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "state",
+                                                           "type":  "nominal",
+                                                           "title":  "State or territory"
+                                                       },
+                                                       {
+                                                           "field":  "informal_people",
+                                                           "type":  "quantitative",
+                                                           "title":  "Estimated people helping",
+                                                           "format":  ",.0f"
+                                                       },
+                                                       {
+                                                           "field":  "informal_share_label",
+                                                           "type":  "nominal",
+                                                           "title":  "Share of residents helping"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "rule",
+                                   "color":  "#60746A",
+                                   "strokeWidth":  1
+                               },
+                      "encoding":  {
+                                       "longitude":  {
+                                                         "field":  "longitude",
+                                                         "type":  "quantitative"
+                                                     },
+                                       "latitude":  {
+                                                        "field":  "latitude",
+                                                        "type":  "quantitative"
+                                                    },
+                                       "longitude2":  {
+                                                          "field":  "label_longitude"
+                                                      },
+                                       "latitude2":  {
+                                                         "field":  "label_latitude"
+                                                     }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold",
+                                   "color":  "#20322B"
+                               },
+                      "encoding":  {
+                                       "longitude":  {
+                                                         "field":  "label_longitude",
+                                                         "type":  "quantitative"
+                                                     },
+                                       "latitude":  {
+                                                        "field":  "label_latitude",
+                                                        "type":  "quantitative"
+                                                    },
+                                       "text":  {
+                                                    "field":  "state"
+                                                }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "legend":  {
+                                  "layout":  {
+                                                 "left":  {
+                                                              "anchor":  "start",
+                                                              "direction":  "vertical",
+                                                              "margin":  28
+                                                          },
+                                                 "bottom":  {
+                                                                "anchor":  "start",
+                                                                "direction":  "horizontal"
+                                                            }
+                                             }
+                              },
+                   "view":  {
+                                "stroke":  null
+                            }
+               }
 }

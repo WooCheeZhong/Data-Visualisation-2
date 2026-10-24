@@ -25,12 +25,10 @@
         "input": "select",
         "name": "How often: ",
         "options": [
-          "At least once per year",
           "At least once per week",
           "At least three times per week"
         ],
         "labels": [
-          "At least once a year",
           "At least once a week",
           "At least three times a week"
         ]
@@ -205,7 +203,7 @@
     }
   ],
   "config": {
-    "font": "Arial",
+    "font": "Source Sans 3, Arial, sans-serif",
     "view": {
       "stroke": null
     }

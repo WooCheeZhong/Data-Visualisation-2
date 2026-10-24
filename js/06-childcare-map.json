@@ -1,246 +1,255 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Map of the share of people aged 15 and over who provided unpaid childcare.",
-  "width": "container",
-  "height": 350,
-  "autosize": {
-    "type": "fit-x",
-    "contains": "padding",
-    "resize": true
-  },
-  "padding": {
-    "left": 0,
-    "right": 8,
-    "top": 10,
-    "bottom": 4
-  },
-  "projection": {
-    "type": "mercator"
-  },
-  "layer": [
-    {
-      "data": {
-        "url": "data/australia-states.topojson",
-        "format": {
-          "type": "topojson",
-          "feature": "STE_2021_AUST_GDA2020"
-        }
-      },
-      "transform": [
-        {
-          "lookup": "properties.STE_NAME21",
-          "from": {
-            "data": {
-              "url": "data/census_unpaid_by_region.csv",
-              "format": {
-                "type": "csv"
-              }
-            },
-            "key": "region",
-            "fields": [
-              "region",
-              "childcare_pct"
-            ]
-          }
-        }
-      ],
-      "mark": {
-        "type": "geoshape",
-        "stroke": "#ffffff",
-        "strokeWidth": 1.2
-      },
-      "encoding": {
-        "color": {
-          "field": "childcare_pct",
-          "type": "quantitative",
-          "scale": {
-            "domain": [24, 37],
-            "range": [
-              "#f7e3e8",
-              "#e8a9b8",
-              "#c85e79",
-              "#8e1f4d"
-            ]
-          },
-          "legend": {
-            "orient": "top",
-            "direction": "horizontal",
-            "title": [
-              "Share of people aged 15+ who",
-              "cared for a child without pay (%)"
-            ],
-            "titleFontSize": 11,
-            "titleLineHeight": 14,
-            "labelFontSize": 11,
-            "gradientLength": 230,
-            "gradientThickness": 16,
-            "offset": 12
-          }
-        },
-        "tooltip": [
-          {
-            "field": "region",
-            "type": "nominal",
-            "title": "Region"
-          },
-          {
-            "field": "childcare_pct",
-            "type": "quantitative",
-            "title": "Share providing unpaid childcare (%)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "data": {
-        "url": "data/census_unpaid_by_region.csv",
-        "format": {
-          "type": "csv"
-        }
-      },
-      "transform": [
-        {
-          "filter": "datum.area_type === 'Capital city'"
-        },
-        {
-          "calculate": "datum.region === 'Australian Capital Territory' ? 'Canberra' : datum.region",
-          "as": "city"
-        }
-      ],
-      "mark": {
-        "type": "square",
-        "size": 125,
-        "stroke": "#ffffff",
-        "strokeWidth": 1.2
-      },
-      "encoding": {
-        "longitude": {
-          "field": "symbol_lon",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "symbol_lat",
-          "type": "quantitative"
-        },
-        "color": {
-          "field": "childcare_pct",
-          "type": "quantitative",
-          "scale": {
-            "domain": [24, 37],
-            "range": [
-              "#f7e3e8",
-              "#e8a9b8",
-              "#c85e79",
-              "#8e1f4d"
-            ]
-          },
-          "legend": null
-        },
-        "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "Capital city"
-          },
-          {
-            "field": "childcare_pct",
-            "type": "quantitative",
-            "title": "Share providing unpaid childcare (%)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "data": {
-        "url": "data/census_unpaid_by_region.csv",
-        "format": {
-          "type": "csv"
-        }
-      },
-      "transform": [
-        {
-          "filter": "datum.area_type === 'Capital city'"
-        },
-        {
-          "calculate": "datum.region === 'Australian Capital Territory' ? 'Canberra' : datum.region",
-          "as": "city"
-        },
-        {
-          "calculate": "datum.city === 'Sydney' ? 151.85 : datum.city === 'Canberra' ? 150.3 : datum.city === 'Melbourne' ? 145.15 : datum.city === 'Brisbane' ? 153.35 : datum.city === 'Adelaide' ? 138.15 : datum.city === 'Perth' ? 116.55 : datum.city === 'Hobart' ? 147.75 : 129.25",
-          "as": "label_lon"
-        },
-        {
-          "calculate": "datum.city === 'Sydney' ? -33.55 : datum.city === 'Canberra' ? -35.55 : datum.city === 'Melbourne' ? -38.1 : datum.city === 'Brisbane' ? -27.2 : datum.city === 'Adelaide' ? -35.1 : datum.city === 'Perth' ? -32.05 : datum.city === 'Hobart' ? -43.05 : -10.4",
-          "as": "label_lat"
-        },
-        {
-          "calculate": "datum.city + ' ' + format(datum.childcare_pct, '.1f') + '%'",
-          "as": "label"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "fontSize": 10,
-        "fontWeight": "bold",
-        "align": "left",
-        "baseline": "middle",
-        "color": "#405148"
-      },
-      "encoding": {
-        "longitude": {
-          "field": "label_lon",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "label_lat",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "longitude": 133.4,
-            "latitude": -19.5,
-            "label": "Northern Territory\n36.2%"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "fontSize": 12,
-        "fontWeight": "bold",
-        "align": "center",
-        "baseline": "middle",
-        "lineBreak": "\n",
-        "lineHeight": 14,
-        "color": "#ffffff"
-      },
-      "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        }
-      }
-    }
-  ],
-  "config": {
-    "font": "Arial",
-    "view": {
-      "stroke": null
-    }
-  }
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Map of the share of people aged 15 and over who provided unpaid childcare.",
+    "width":  "container",
+    "height":  350,
+    "autosize":  {
+                     "type":  "fit-x",
+                     "contains":  "padding",
+                     "resize":  true
+                 },
+    "padding":  {
+                    "left":  0,
+                    "right":  8,
+                    "top":  10,
+                    "bottom":  4
+                },
+    "projection":  {
+                       "type":  "mercator"
+                   },
+    "layer":  [
+                  {
+                      "data":  {
+                                   "url":  "data/australia-states.topojson",
+                                   "format":  {
+                                                  "type":  "topojson",
+                                                  "feature":  "STE_2026_AUST_GDA2020"
+                                              }
+                               },
+                      "mark":  {
+                                   "type":  "geoshape",
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  1.2
+                               },
+                      "encoding":  {
+                                       "color":  {
+                                                     "field":  "childcare_pct",
+                                                     "type":  "quantitative",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  24,
+                                                                                  37
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#f7e3e8",
+                                                                                 "#e8a9b8",
+                                                                                 "#c85e79",
+                                                                                 "#8e1f4d"
+                                                                             ]
+                                                               },
+                                                     "legend":  {
+                                                                    "orient":  "top",
+                                                                    "direction":  "horizontal",
+                                                                    "title":  [
+                                                                                  "Share of people aged 15+ who",
+                                                                                  "cared for a child without pay (%)"
+                                                                              ],
+                                                                    "titleFontSize":  11,
+                                                                    "titleLineHeight":  14,
+                                                                    "labelFontSize":  11,
+                                                                    "gradientLength":  230,
+                                                                    "gradientThickness":  16,
+                                                                    "offset":  12
+                                                                }
+                                                 },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "region",
+                                                           "type":  "nominal",
+                                                           "title":  "Region"
+                                                       },
+                                                       {
+                                                           "field":  "childcare_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Share providing unpaid childcare (%)",
+                                                           "format":  ".1f"
+                                                       }
+                                                   ]
+                                   },
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.properties.STE_NAME26 !== \u0027Other Territories\u0027 \u0026\u0026 datum.properties.STE_NAME26 !== \u0027Outside Australia\u0027"
+                                        },
+                                        {
+                                            "lookup":  "properties.STE_NAME26",
+                                            "from":  {
+                                                         "data":  {
+                                                                      "url":  "data/census_unpaid_by_region.csv",
+                                                                      "format":  {
+                                                                                     "type":  "csv"
+                                                                                 }
+                                                                  },
+                                                         "key":  "region",
+                                                         "fields":  [
+                                                                        "region",
+                                                                        "childcare_pct"
+                                                                    ]
+                                                     }
+                                        }
+                                    ]
+                  },
+                  {
+                      "data":  {
+                                   "url":  "data/census_unpaid_by_region.csv",
+                                   "format":  {
+                                                  "type":  "csv"
+                                              }
+                               },
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.area_type === \u0027Capital city\u0027"
+                                        },
+                                        {
+                                            "calculate":  "datum.region === \u0027Australian Capital Territory\u0027 ? \u0027Canberra\u0027 : datum.region",
+                                            "as":  "city"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "square",
+                                   "size":  125,
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  1.2
+                               },
+                      "encoding":  {
+                                       "longitude":  {
+                                                         "field":  "symbol_lon",
+                                                         "type":  "quantitative"
+                                                     },
+                                       "latitude":  {
+                                                        "field":  "symbol_lat",
+                                                        "type":  "quantitative"
+                                                    },
+                                       "color":  {
+                                                     "field":  "childcare_pct",
+                                                     "type":  "quantitative",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  24,
+                                                                                  37
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#f7e3e8",
+                                                                                 "#e8a9b8",
+                                                                                 "#c85e79",
+                                                                                 "#8e1f4d"
+                                                                             ]
+                                                               },
+                                                     "legend":  null
+                                                 },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "city",
+                                                           "type":  "nominal",
+                                                           "title":  "Capital city"
+                                                       },
+                                                       {
+                                                           "field":  "childcare_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Share providing unpaid childcare (%)",
+                                                           "format":  ".1f"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "url":  "data/census_unpaid_by_region.csv",
+                                   "format":  {
+                                                  "type":  "csv"
+                                              }
+                               },
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.area_type === \u0027Capital city\u0027"
+                                        },
+                                        {
+                                            "calculate":  "datum.region === \u0027Australian Capital Territory\u0027 ? \u0027Canberra\u0027 : datum.region",
+                                            "as":  "city"
+                                        },
+                                        {
+                                            "calculate":  "datum.city === \u0027Sydney\u0027 ? 151.85 : datum.city === \u0027Canberra\u0027 ? 150.3 : datum.city === \u0027Melbourne\u0027 ? 145.15 : datum.city === \u0027Brisbane\u0027 ? 153.35 : datum.city === \u0027Adelaide\u0027 ? 138.15 : datum.city === \u0027Perth\u0027 ? 116.55 : datum.city === \u0027Hobart\u0027 ? 147.75 : 129.25",
+                                            "as":  "label_lon"
+                                        },
+                                        {
+                                            "calculate":  "datum.city === \u0027Sydney\u0027 ? -33.55 : datum.city === \u0027Canberra\u0027 ? -35.55 : datum.city === \u0027Melbourne\u0027 ? -38.1 : datum.city === \u0027Brisbane\u0027 ? -27.2 : datum.city === \u0027Adelaide\u0027 ? -35.1 : datum.city === \u0027Perth\u0027 ? -32.05 : datum.city === \u0027Hobart\u0027 ? -43.05 : -10.4",
+                                            "as":  "label_lat"
+                                        },
+                                        {
+                                            "calculate":  "datum.city + \u0027 \u0027 + format(datum.childcare_pct, \u0027.1f\u0027) + \u0027%\u0027",
+                                            "as":  "label"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "fontSize":  10,
+                                   "fontWeight":  "bold",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "color":  "#405148"
+                               },
+                      "encoding":  {
+                                       "longitude":  {
+                                                         "field":  "label_lon",
+                                                         "type":  "quantitative"
+                                                     },
+                                       "latitude":  {
+                                                        "field":  "label_lat",
+                                                        "type":  "quantitative"
+                                                    },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "longitude":  133.4,
+                                                      "latitude":  -19.5,
+                                                      "label":  "Northern Territory\n36.2%"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "fontSize":  12,
+                                   "fontWeight":  "bold",
+                                   "align":  "center",
+                                   "baseline":  "middle",
+                                   "lineBreak":  "\n",
+                                   "lineHeight":  14,
+                                   "color":  "#ffffff"
+                               },
+                      "encoding":  {
+                                       "longitude":  {
+                                                         "field":  "longitude",
+                                                         "type":  "quantitative"
+                                                     },
+                                       "latitude":  {
+                                                        "field":  "latitude",
+                                                        "type":  "quantitative"
+                                                    },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               }
 }

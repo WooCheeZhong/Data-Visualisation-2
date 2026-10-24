@@ -352,7 +352,7 @@
     }
   ],
   "config": {
-    "font": "Arial",
+    "font": "Source Sans 3, Arial, sans-serif",
     "view": {
       "stroke": null
     }

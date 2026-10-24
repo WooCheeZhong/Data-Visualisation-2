@@ -1,8 +1,19 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Change in organised volunteering in Australia from 2006 to 2025.",
-  "width": 500,
-  "height": 200,
+  "width": "container",
+  "height": 330,
+  "autosize": {
+    "type": "fit-x",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": {
+    "left": 0,
+    "right": 26,
+    "top": 6,
+    "bottom": 4
+  },
 
   "data": {
     "url": "data/volunteering_trend.csv"
@@ -309,6 +320,7 @@
   ],
 
   "config": {
+    "font": "Source Sans 3, Arial, sans-serif",
     "view": {
       "stroke": null
     }

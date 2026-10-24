@@ -351,5 +351,10 @@
         }
       }
     }
-  ]
+  ],
+  "config": {
+    "text": {
+      "font": "Source Sans 3, Arial, sans-serif"
+    }
+  }
 }

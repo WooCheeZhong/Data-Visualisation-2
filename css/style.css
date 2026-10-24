@@ -11,7 +11,7 @@ body {
   margin: 0; /* Removes the browser's default outer spacing. */
   background: #f7f5f0; /* Sets the warm off-white background used behind all sections and charts. */
   color: #20322b; /* Sets the default dark-green text colour for the webpage. */
-  font-family: Arial, Helvetica, sans-serif; /* Uses a simple sans-serif font that is easy to read on screen. */
+  font-family: "Source Sans 3", Arial, Helvetica, sans-serif; /* A humanist sans-serif that stays readable at small sizes. */
   line-height: 1.6; /* Adds comfortable vertical spacing between lines of text. */
 }
 
@@ -46,10 +46,10 @@ body {
   max-width: none; /* Limits the title width so it wraps into a readable shape. */
   margin: 0 0 30px; /* Adds space below the title before the summary begins. */
   color: #f8f6f0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Fraunces", Georgia, serif;
   font-size: clamp(3.5rem, 8vw, 5.8rem);   /* clamp() makes the title responsive: it grows on large screens but stays readable on smaller screens. */
   font-weight: 700;
-  letter-spacing: -0.06em; /* Slightly reduces the space between letters for a stronger heading style. */
+  letter-spacing: -0.03em; /* Slightly reduces the space between letters for a stronger heading style. */
   line-height: 0.96; /* Reduces vertical space between title lines. */
   text-align: left; /* Aligns the title to the left to support the reading flow. */
 }
@@ -443,62 +443,90 @@ section > p {
 }
 
 /* =================================================
-   FOOTER METADATA
-   Author, date and full data sources.
+   BEHIND THE STORY (FOOTER)
+   Authorship and linked sources on the left,
+   method notes on the right.
 ================================================= */
 .site-footer {
-  background: #163f35;
-  color: #d9e3dd;
+  background: #e9eee9;
+  border-top: 1px solid #dce4dd;
+  color: #405148;
 }
 
 .footer-inner {
-  display: grid;
-  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr);
-  gap: 48px;
   max-width: 1180px;
   margin: 0 auto;
   padding: 56px 28px 64px;
 }
 
-.site-footer h2 {
-  margin: 0 0 14px;
-  color: #f8f6f0;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.footer-heading {
+  margin-bottom: 28px;
 }
 
-.site-footer p,
-.site-footer ul {
+.footer-heading h2 {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.7;
+  color: #20322b;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-.site-footer ul {
-  padding-left: 18px;
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px;
+  align-items: start;
 }
 
-.site-footer li + li {
-  margin-top: 6px;
+.site-footer h3 {
+  margin: 28px 0 10px;
+  color: #20322b;
+  font-size: 1rem;
+}
+
+.footer-columns > div > h3:first-child {
+  margin-top: 0;
+}
+
+.site-footer p {
+  margin: 0 0 16px;
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
 .site-footer strong {
-  color: #f8f6f0;
+  color: #20322b;
+}
+
+.site-footer a {
+  color: #1f5e8c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.site-footer a:hover {
+  color: #c95d35;
+}
+
+.site-footer a:focus-visible {
+  outline: 2px solid #c95d35;
+  outline-offset: 2px;
 }
 
 @media (max-width: 800px) {
-  .footer-inner {
+  .footer-columns {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 8px;
+  }
+
+  .footer-inner {
     padding: 44px 18px 52px;
   }
 }
-
 /* =================================================
    LINE LENGTH
    Keeps every line of running text to about ten words.
-   46ch fits roughly 55-60 characters of Arial, the
+   46ch fits roughly 55-60 characters of the body font, the
    width of ten average English words and their spaces.
 ================================================= */
 p,
@@ -561,4 +589,283 @@ dd {
     grid-template-columns: 1fr;
     gap: 14px;
   }
+}
+/* =================================================
+   PART 4 SUMMARY
+   Three cards recap each theme, using the same
+   colours as the hero metrics; a closing statement
+   ends the story.
+================================================= */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin: 8px 0 48px;
+}
+
+.summary-card {
+  padding-top: 16px;
+  border-top: 3px solid #dce4dd;
+}
+
+.summary-card h3 {
+  margin: 0 0 8px;
+  color: #20322b;
+  font-size: 1.1rem;
+}
+
+.summary-card p {
+  margin: 0;
+  color: #405148;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.volunteering-summary {
+  border-top-color: #56b4e9;
+}
+
+.care-summary {
+  border-top-color: #009e73;
+}
+
+.activity-summary {
+  border-top-color: #cc79a7;
+}
+
+.closing-statement {
+  margin: 0;
+  color: #20322b;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 800px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+
+/* Radio buttons that Vega adds below interactive charts. */
+.vega-bind + .vega-bind {
+  margin-top: 10px;
+}
+
+.vega-bind-radio label {
+  margin-right: 14px;
+  color: #405148;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.vega-bind-radio input[type="radio"] {
+  margin: 0 5px 0 0;
+  accent-color: #009e73;
+  cursor: pointer;
+}
+
+.vega-bind-radio input[type="radio"]:focus-visible {
+  outline: 2px solid #c95d35;
+  outline-offset: 2px;
+}
+
+/* =================================================
+   STICKY SECTION NAVIGATION
+   Hidden while the hero is on screen, then slides in.
+   Links jump to each part; the current part is filled.
+================================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keep section tops clear of the fixed bar after a jump. */
+section[id],
+footer[id] {
+  scroll-margin-top: 72px;
+}
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(247, 245, 240, 0.96);
+  border-bottom: 1px solid #dce4dd;
+  box-shadow: 0 4px 16px rgba(32, 50, 43, 0.06);
+  transform: translateY(-100%);
+  transition: transform 0.25s ease;
+}
+
+/* Also show the bar when a keyboard user tabs into it. */
+.site-nav.is-visible,
+.site-nav:focus-within {
+  transform: translateY(0);
+}
+
+.site-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 28px;
+}
+
+.site-nav-title {
+  color: #163f35;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.site-nav ul a {
+  display: block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: #405148;
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav ul a:hover {
+  background: #e9eee9;
+}
+
+.site-nav ul a.is-active {
+  background: #163f35;
+  color: #f8f6f0;
+}
+
+.site-nav a:focus-visible {
+  outline: 2px solid #c95d35;
+  outline-offset: 2px;
+}
+
+@media (max-width: 800px) {
+  .site-nav-title {
+    display: none;
+  }
+
+  .site-nav-inner {
+    padding: 8px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .site-nav {
+    transition: none;
+  }
+}
+
+/* =================================================
+   TYPEFACE FOR STORY HEADINGS
+   Fraunces gives the story headings a warm, human
+   voice; chart titles and body text stay in Source Sans 3.
+================================================= */
+.chart-one-story h2,
+.map-story h2,
+.map-story h3,
+.footer-heading h2,
+.closing-statement {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* =================================================
+   ONE COLUMN GRID FOR EVERY ROW
+   Story openers mirror the chart rows: a one-third
+   text column and a two-thirds chart column, with the
+   same gap, so all rows share the same two sight lines.
+================================================= */
+.chart-one-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 36px;
+}
+
+@media (max-width: 1100px) {
+  .chart-one-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* Wider areas (chart cards, footer) need a tighter measure so lines
+   stay at ten words or fewer in the narrower Source Sans 3. */
+.chart-panel p,
+.chart-panel li,
+.chart-one-card p,
+.chart-one-card li,
+.site-footer p {
+  max-width: 40ch;
+}
+
+/* The closing statement is set large, so it gets its own measure. */
+.closing-statement {
+  max-width: 24ch;
+}
+
+/* =================================================
+   HERO METRIC CARDS
+   Each headline number sits in its own card on the
+   dark hero, with a top accent in its theme colour.
+================================================= */
+.hero-metrics {
+  gap: 24px;
+}
+
+.hero-metric {
+  position: relative;
+  padding: 26px 24px 24px;
+  background: rgba(248, 246, 240, 0.06);
+  border: 1px solid rgba(232, 240, 235, 0.16);
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+/* Accent bar along the top edge of each card. */
+.hero-metric::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.volunteering-metric::before {
+  background: #56b4e9;
+}
+
+.care-metric::before {
+  background: #009e73;
+}
+
+.activity-metric::before {
+  background: #cc79a7;
+}
+
+/* Let the description use the card's width. */
+.hero-metric p {
+  max-width: none;
 }
