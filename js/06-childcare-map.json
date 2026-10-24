@@ -1,6 +1,6 @@
 {
     "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
-    "description":  "Map of the share of people aged 15 and over who provided unpaid childcare.",
+    "description":  "Map of the share of people aged 15 and over who provided unpaid childcare in 2021. States are shaded by the rate outside the capital city; squares show the capital cities on the same scale.",
     "width":  "container",
     "height":  350,
     "autosize":  {
@@ -51,8 +51,8 @@
                                                                     "orient":  "top",
                                                                     "direction":  "horizontal",
                                                                     "title":  [
-                                                                                  "Share of people aged 15+ who",
-                                                                                  "cared for a child without pay (%)"
+                                                                                  "Share of people aged 15 and over who",
+                                                                                  "cared for a child without pay, 2021 (%)"
                                                                               ],
                                                                     "titleFontSize":  11,
                                                                     "titleLineHeight":  14,
@@ -64,9 +64,9 @@
                                                  },
                                        "tooltip":  [
                                                        {
-                                                           "field":  "region",
+                                                           "field":  "area_name",
                                                            "type":  "nominal",
-                                                           "title":  "Region"
+                                                           "title":  "Area"
                                                        },
                                                        {
                                                            "field":  "childcare_pct",
@@ -92,9 +92,15 @@
                                                          "key":  "region",
                                                          "fields":  [
                                                                         "region",
+                                                                        "state_code",
+                                                                        "area_type",
                                                                         "childcare_pct"
                                                                     ]
                                                      }
+                                        },
+                                        {
+                                            "calculate":  "datum.area_type === \u0027Capital city\u0027 ? datum.region + \u0027 (Canberra)\u0027 : \u0027Rest of \u0027 + datum.region + \u0027 (outside \u0027 + (datum.state_code === \u0027NSW\u0027 ? \u0027Sydney\u0027 : datum.state_code === \u0027VIC\u0027 ? \u0027Melbourne\u0027 : datum.state_code === \u0027QLD\u0027 ? \u0027Brisbane\u0027 : datum.state_code === \u0027SA\u0027 ? \u0027Adelaide\u0027 : datum.state_code === \u0027WA\u0027 ? \u0027Perth\u0027 : datum.state_code === \u0027TAS\u0027 ? \u0027Hobart\u0027 : \u0027Darwin\u0027) + \u0027)\u0027",
+                                            "as":  "area_name"
                                         }
                                     ]
                   },
@@ -116,9 +122,9 @@
                                     ],
                       "mark":  {
                                    "type":  "square",
-                                   "size":  125,
-                                   "stroke":  "#ffffff",
-                                   "strokeWidth":  1.2
+                                   "size":  150,
+                                   "stroke":  "#405148",
+                                   "strokeWidth":  1
                                },
                       "encoding":  {
                                        "longitude":  {
@@ -177,11 +183,11 @@
                                             "as":  "city"
                                         },
                                         {
-                                            "calculate":  "datum.city === \u0027Sydney\u0027 ? 151.85 : datum.city === \u0027Canberra\u0027 ? 150.3 : datum.city === \u0027Melbourne\u0027 ? 145.15 : datum.city === \u0027Brisbane\u0027 ? 153.35 : datum.city === \u0027Adelaide\u0027 ? 138.15 : datum.city === \u0027Perth\u0027 ? 116.55 : datum.city === \u0027Hobart\u0027 ? 147.75 : 129.25",
+                                            "calculate":  "(datum.city === \u0027Sydney\u0027 ? 151.85 : datum.city === \u0027Canberra\u0027 ? 150.3 : datum.city === \u0027Melbourne\u0027 ? 145.15 : datum.city === \u0027Brisbane\u0027 ? 153.35 : datum.city === \u0027Adelaide\u0027 ? 138.6 : datum.city === \u0027Perth\u0027 ? 116.55 : datum.city === \u0027Hobart\u0027 ? 147.75 : 129.25) + 0.8",
                                             "as":  "label_lon"
                                         },
                                         {
-                                            "calculate":  "datum.city === \u0027Sydney\u0027 ? -33.55 : datum.city === \u0027Canberra\u0027 ? -35.55 : datum.city === \u0027Melbourne\u0027 ? -38.1 : datum.city === \u0027Brisbane\u0027 ? -27.2 : datum.city === \u0027Adelaide\u0027 ? -35.1 : datum.city === \u0027Perth\u0027 ? -32.05 : datum.city === \u0027Hobart\u0027 ? -43.05 : -10.4",
+                                            "calculate":  "datum.city === \u0027Sydney\u0027 ? -33.55 : datum.city === \u0027Canberra\u0027 ? -35.55 : datum.city === \u0027Melbourne\u0027 ? -37.81 : datum.city === \u0027Brisbane\u0027 ? -27.2 : datum.city === \u0027Adelaide\u0027 ? -34.93 : datum.city === \u0027Perth\u0027 ? -32.05 : datum.city === \u0027Hobart\u0027 ? -43.05 : -10.4",
                                             "as":  "label_lat"
                                         },
                                         {
@@ -217,18 +223,18 @@
                                                   {
                                                       "longitude":  133.4,
                                                       "latitude":  -19.5,
-                                                      "label":  "Northern Territory\n36.2%"
+                                                      "label":  "Rest of the\nNorthern\nTerritory\n36.2%"
                                                   }
                                               ]
                                },
                       "mark":  {
                                    "type":  "text",
-                                   "fontSize":  12,
+                                   "fontSize":  11,
                                    "fontWeight":  "bold",
                                    "align":  "center",
                                    "baseline":  "middle",
                                    "lineBreak":  "\n",
-                                   "lineHeight":  14,
+                                   "lineHeight":  13,
                                    "color":  "#ffffff"
                                },
                       "encoding":  {
@@ -240,6 +246,62 @@
                                                         "field":  "latitude",
                                                         "type":  "quantitative"
                                                     },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "label":  "States: rate outside the capital city"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "top",
+                                   "fontSize":  11,
+                                   "fontStyle":  "italic",
+                                   "color":  "#52635a"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "value":  0
+                                             },
+                                       "y":  {
+                                                 "value":  0
+                                             },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "label":  "Squares: capital cities, same scale"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "top",
+                                   "fontSize":  11,
+                                   "fontStyle":  "italic",
+                                   "color":  "#52635a"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "value":  0
+                                             },
+                                       "y":  {
+                                                 "value":  16
+                                             },
                                        "text":  {
                                                     "field":  "label"
                                                 }

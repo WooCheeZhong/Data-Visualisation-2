@@ -1,360 +1,457 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Change in formal volunteering rates by Australian state and territory from 2020 to 2025.",
-  "width": "container",
-  "height": 350,
-  "autosize": {
-    "type": "fit-x",
-    "contains": "padding",
-    "resize": true
-  },
-  "padding": {
-    "left": 0,
-    "right": 8,
-    "top": 8,
-    "bottom": 8
-  },
-  "data": {
-    "url": "data/volunteering_state_2020_2025.csv",
-    "format": {
-      "type": "csv"
-    }
-  },
-  "transform": [
-    {
-      "calculate": "datum.state + ' ' + format(datum.formal_volunteering_pct, '.1f') + '%'",
-      "as": "state_rate_label"
-    }
-  ],
-  "layer": [
-    {
-      "mark": {
-        "type": "line",
-        "strokeWidth": 2.5
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [2016, 2029],
-            "nice": false
-          },
-          "axis": {
-            "orient": "top",
-            "title": null,
-            "values": [2020, 2025],
-            "format": ".0f",
-            "labelAngle": 0,
-            "labelFontSize": 14,
-            "labelFontWeight": "bold",
-            "labelColor": "#20322b",
-            "labelPadding": 14,
-            "ticks": false,
-            "domain": false
-          }
-        },
-        "y": {
-          "field": "formal_volunteering_pct",
-          "type": "quantitative",
-          "scale": {
-            "domain": [20.55, 31.9],
-            "nice": false
-          },
-          "axis": null
-        },
-        "detail": {
-          "field": "state"
-        },
-        "order": {
-          "field": "year",
-          "sort": "ascending"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.state === 'Australian Capital Territory'",
-            "value": "#c95d35"
-          },
-          "value": "#c9d0ca"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state !== 'Australian Capital Territory'"
-        }
-      ],
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 125,
-        "color": "#55675e",
-        "stroke": "#ffffff",
-        "strokeWidth": 2
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [2016, 2029],
-            "nice": false
-          }
-        },
-        "y": {
-          "field": "formal_volunteering_pct",
-          "type": "quantitative",
-          "scale": {
-            "domain": [20.55, 31.9],
-            "nice": false
-          }
-        },
-        "tooltip": [
-          {
-            "field": "state",
-            "type": "nominal",
-            "title": "State or territory"
-          },
-          {
-            "field": "year",
-            "type": "quantitative",
-            "title": "Year",
-            "format": ".0f"
-          },
-          {
-            "field": "formal_volunteering_pct",
-            "type": "quantitative",
-            "title": "Formal volunteering rate (%)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state === 'Australian Capital Territory'"
-        }
-      ],
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 145,
-        "color": "#c95d35",
-        "stroke": "#ffffff",
-        "strokeWidth": 2
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [2016, 2029],
-            "nice": false
-          }
-        },
-        "y": {
-          "field": "formal_volunteering_pct",
-          "type": "quantitative",
-          "scale": {
-            "domain": [20.55, 31.9],
-            "nice": false
-          }
-        },
-        "tooltip": [
-          {
-            "field": "state",
-            "type": "nominal",
-            "title": "State or territory"
-          },
-          {
-            "field": "year",
-            "type": "quantitative",
-            "title": "Year",
-            "format": ".0f"
-          },
-          {
-            "field": "formal_volunteering_pct",
-            "type": "quantitative",
-            "title": "Formal volunteering rate (%)",
-            "format": ".1f"
-          }
-        ]
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.year == 2020"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "baseline": "middle",
-        "dx": -14,
-        "fontSize": 12,
-        "fontWeight": "bold"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [2016, 2029],
-            "nice": false
-          }
-        },
-        "y": {
-          "field": "label_y",
-          "type": "quantitative",
-          "scale": {
-            "domain": [20.55, 31.9],
-            "nice": false
-          }
-        },
-        "text": {
-          "field": "state_rate_label"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.state === 'Australian Capital Territory'",
-            "value": "#b44f2b"
-          },
-          "value": "#52635a"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.year == 2025"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "baseline": "middle",
-        "dx": 14,
-        "fontSize": 12,
-        "fontWeight": "bold"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [2016, 2029],
-            "nice": false
-          }
-        },
-        "y": {
-          "field": "label_y",
-          "type": "quantitative",
-          "scale": {
-            "domain": [20.55, 31.9],
-            "nice": false
-          }
-        },
-        "text": {
-          "field": "state_rate_label"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.state === 'Australian Capital Territory'",
-            "value": "#b44f2b"
-          },
-          "value": "#52635a"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "year": 2022.5,
-            "rate": 31.68,
-            "annotation": "All 8 states and territories declined"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "baseline": "middle",
-        "fontSize": 12,
-        "fontWeight": "bold",
-        "color": "#52635a"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [2016, 2029],
-            "nice": false
-          }
-        },
-        "y": {
-          "field": "rate",
-          "type": "quantitative",
-          "scale": {
-            "domain": [20.55, 31.9],
-            "nice": false
-          }
-        },
-        "text": {
-          "field": "annotation"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "year": 2024.7,
-            "rate": 20.86,
-            "annotation": "ACT: largest fall (-8.9 percentage points)"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "baseline": "middle",
-        "dx": -14,
-        "fontSize": 12,
-        "fontWeight": "bold",
-        "color": "#b44f2b"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "scale": {
-            "domain": [2016, 2029],
-            "nice": false
-          }
-        },
-        "y": {
-          "field": "rate",
-          "type": "quantitative",
-          "scale": {
-            "domain": [20.55, 31.9],
-            "nice": false
-          }
-        },
-        "text": {
-          "field": "annotation"
-        }
-      }
-    }
-  ],
-  "config": {
-    "font": "Source Sans 3, Arial, sans-serif",
-    "view": {
-      "stroke": null
-    }
-  }
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Change in formal volunteering rates by Australian state and territory from 2020 to 2025.",
+    "width":  "container",
+    "height":  430,
+    "autosize":  {
+                     "type":  "fit-x",
+                     "contains":  "padding",
+                     "resize":  true
+                 },
+    "padding":  {
+                    "left":  0,
+                    "right":  8,
+                    "top":  8,
+                    "bottom":  8
+                },
+    "data":  {
+                 "url":  "data/volunteering_state_2020_2025.csv",
+                 "format":  {
+                                "type":  "csv"
+                            }
+             },
+    "transform":  [
+                      {
+                          "calculate":  "datum.state + \u0027 \u0027 + format(datum.formal_volunteering_pct, \u0027.1f\u0027) + \u0027%\u0027",
+                          "as":  "state_rate_label"
+                      },
+                      {
+                          "calculate":  "datum.year == 2020 ? 2019.5 : 2025.5",
+                          "as":  "label_x"
+                      },
+                      {
+                          "calculate":  "datum.year == 2020 ? (datum.state_code === \u0027ACT\u0027 ? 30.9 : datum.state_code === \u0027TAS\u0027 ? 30.2 : datum.state_code === \u0027NT\u0027 ? 28.4 : datum.state_code === \u0027SA\u0027 ? 26.3 : datum.state_code === \u0027WA\u0027 ? 25.75 : datum.state_code === \u0027QLD\u0027 ? 25.2 : datum.state_code === \u0027VIC\u0027 ? 24.4 : 23.1) : (datum.state_code === \u0027TAS\u0027 ? 27.5 : datum.state_code === \u0027NT\u0027 ? 26.7 : datum.state_code === \u0027WA\u0027 ? 24.1 : datum.state_code === \u0027SA\u0027 ? 23.6 : datum.state_code === \u0027NSW\u0027 ? 22.75 : datum.state_code === \u0027QLD\u0027 ? 22.3 : datum.state_code === \u0027ACT\u0027 ? 21.85 : 21.4)",
+                          "as":  "label_position"
+                      }
+                  ],
+    "layer":  [
+                  {
+                      "mark":  {
+                                   "type":  "line",
+                                   "strokeWidth":  2.5
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "year",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           },
+                                                 "axis":  {
+                                                              "orient":  "top",
+                                                              "title":  null,
+                                                              "values":  [
+                                                                             2020,
+                                                                             2025
+                                                                         ],
+                                                              "format":  ".0f",
+                                                              "labelAngle":  0,
+                                                              "labelFontSize":  14,
+                                                              "labelFontWeight":  "bold",
+                                                              "labelColor":  "#20322b",
+                                                              "labelPadding":  14,
+                                                              "ticks":  false,
+                                                              "domain":  false
+                                                          }
+                                             },
+                                       "y":  {
+                                                 "field":  "formal_volunteering_pct",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           },
+                                                 "axis":  null
+                                             },
+                                       "detail":  {
+                                                      "field":  "state"
+                                                  },
+                                       "order":  {
+                                                     "field":  "year",
+                                                     "sort":  "ascending"
+                                                 },
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "datum.state === \u0027Australian Capital Territory\u0027",
+                                                                       "value":  "#c95d35"
+                                                                   },
+                                                     "value":  "#c9d0ca"
+                                                 }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "rule",
+                                   "strokeWidth":  1
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "year",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "x2":  {
+                                                  "field":  "label_x"
+                                              },
+                                       "y":  {
+                                                 "field":  "formal_volunteering_pct",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y2":  {
+                                                  "field":  "label_position"
+                                              },
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "datum.state === \u0027Australian Capital Territory\u0027",
+                                                                       "value":  "#c95d35"
+                                                                   },
+                                                     "value":  "#a9b3ad"
+                                                 }
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.state !== \u0027Australian Capital Territory\u0027"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "point",
+                                   "filled":  true,
+                                   "size":  88,
+                                   "color":  "#55675e",
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  2
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "year",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "formal_volunteering_pct",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "state",
+                                                           "type":  "nominal",
+                                                           "title":  "State or territory"
+                                                       },
+                                                       {
+                                                           "field":  "year",
+                                                           "type":  "quantitative",
+                                                           "title":  "Year",
+                                                           "format":  ".0f"
+                                                       },
+                                                       {
+                                                           "field":  "formal_volunteering_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Formal volunteering rate (%)",
+                                                           "format":  ".1f"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.state === \u0027Australian Capital Territory\u0027"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "point",
+                                   "filled":  true,
+                                   "size":  102,
+                                   "color":  "#c95d35",
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  2
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "year",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "formal_volunteering_pct",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "state",
+                                                           "type":  "nominal",
+                                                           "title":  "State or territory"
+                                                       },
+                                                       {
+                                                           "field":  "year",
+                                                           "type":  "quantitative",
+                                                           "title":  "Year",
+                                                           "format":  ".0f"
+                                                       },
+                                                       {
+                                                           "field":  "formal_volunteering_pct",
+                                                           "type":  "quantitative",
+                                                           "title":  "Formal volunteering rate (%)",
+                                                           "format":  ".1f"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.year == 2020"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "right",
+                                   "baseline":  "middle",
+                                   "dx":  -4,
+                                   "fontSize":  12,
+                                   "fontWeight":  "bold"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "label_x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "label_position",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "state_rate_label"
+                                                },
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "datum.state === \u0027Australian Capital Territory\u0027",
+                                                                       "value":  "#b44f2b"
+                                                                   },
+                                                     "value":  "#52635a"
+                                                 }
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "filter":  "datum.year == 2025"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "dx":  4,
+                                   "fontSize":  12,
+                                   "fontWeight":  "bold"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "label_x",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "label_position",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "state_rate_label"
+                                                },
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "datum.state === \u0027Australian Capital Territory\u0027",
+                                                                       "value":  "#b44f2b"
+                                                                   },
+                                                     "value":  "#52635a"
+                                                 }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "year":  2022.5,
+                                                      "rate":  31.68,
+                                                      "annotation":  "All 8 states and territories declined"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "center",
+                                   "baseline":  "middle",
+                                   "fontSize":  12,
+                                   "fontWeight":  "bold",
+                                   "color":  "#52635a"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "year",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "rate",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "annotation"
+                                                }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "year":  2024.7,
+                                                      "rate":  20.86,
+                                                      "annotation":  "ACT: largest fall|(-8.9 percentage points)"
+                                                  }
+                                              ]
+                               },
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "right",
+                                   "baseline":  "middle",
+                                   "dx":  -14,
+                                   "fontSize":  12,
+                                   "fontWeight":  "bold",
+                                   "color":  "#b44f2b",
+                                   "lineBreak":  "|"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "year",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              2014.6,
+                                                                              2030.4
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "y":  {
+                                                 "field":  "rate",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              20.55,
+                                                                              31.9
+                                                                          ],
+                                                               "nice":  false
+                                                           }
+                                             },
+                                       "text":  {
+                                                    "field":  "annotation"
+                                                }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               }
 }

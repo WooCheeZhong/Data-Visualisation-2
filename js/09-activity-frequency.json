@@ -4,7 +4,7 @@
     "width":  "container",
     "height":  320,
     "padding":  {
-                    "left":  0,
+                    "left":  6,
                     "right":  12,
                     "top":  22,
                     "bottom":  6

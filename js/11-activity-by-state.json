@@ -1,211 +1,222 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Dot plot comparing the share of adults active at a chosen frequency in each state and territory, 2025 with 2024 shown as a hollow ring.",
-  "width": "container",
-  "height": 300,
-  "title": {
-    "text": "● 2025     ○ 2024",
-    "anchor": "end",
-    "fontSize": 12,
-    "fontWeight": "bold",
-    "color": "#7a4ea3",
-    "offset": 10
-  },
-  "padding": {
-    "left": 0,
-    "right": 12,
-    "top": 4,
-    "bottom": 6
-  },
-  "params": [
-    {
-      "name": "frequency_choice",
-      "value": "At least once per week",
-      "bind": {
-        "input": "select",
-        "name": "How often: ",
-        "options": [
-          "At least once per week",
-          "At least three times per week"
-        ],
-        "labels": [
-          "At least once a week",
-          "At least three times a week"
-        ]
-      }
-    }
-  ],
-  "data": {
-    "url": "data/activity_by_state.csv",
-    "format": {
-      "type": "csv"
-    }
-  },
-  "transform": [
-    {
-      "filter": "datum.frequency === frequency_choice"
-    },
-    {
-      "pivot": "year",
-      "value": "participation_pct",
-      "groupby": ["state", "state_code"]
-    },
-    {
-      "calculate": "toNumber(datum['2024'])",
-      "as": "pct_2024"
-    },
-    {
-      "calculate": "toNumber(datum['2025'])",
-      "as": "pct_2025"
-    },
-    {
-      "calculate": "datum.pct_2025 - datum.pct_2024",
-      "as": "change"
-    },
-    {
-      "calculate": "max(datum.pct_2024, datum.pct_2025)",
-      "as": "label_x"
-    }
-  ],
-  "encoding": {
-    "y": {
-      "field": "state",
-      "type": "nominal",
-      "sort": {
-        "field": "pct_2025",
-        "order": "descending"
-      },
-      "axis": {
-        "title": null,
-        "labelFontSize": 11,
-        "labelColor": "#405148",
-        "labelPadding": 8,
-        "labelLimit": 200,
-        "ticks": false,
-        "domain": false
-      }
-    },
-    "tooltip": [
-      {
-        "field": "state",
-        "type": "nominal",
-        "title": "State or territory"
-      },
-      {
-        "field": "pct_2025",
-        "type": "quantitative",
-        "title": "2025 (%)",
-        "format": ".1f"
-      },
-      {
-        "field": "pct_2024",
-        "type": "quantitative",
-        "title": "2024 (%)",
-        "format": ".1f"
-      },
-      {
-        "field": "change",
-        "type": "quantitative",
-        "title": "Change (points)",
-        "format": "+.1f"
-      }
-    ]
-  },
-  "layer": [
-    {
-      "mark": {
-        "type": "rule",
-        "color": "#ddd0ea",
-        "strokeWidth": 2
-      },
-      "encoding": {
-        "x": {
-          "field": "pct_2025",
-          "type": "quantitative"
-        },
-        "x2": {
-          "datum": 0
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "point",
-        "shape": "circle",
-        "filled": false,
-        "size": 80,
-        "strokeWidth": 1.6,
-        "color": "#7a4ea3",
-        "opacity": 0.75
-      },
-      "encoding": {
-        "x": {
-          "field": "pct_2024",
-          "type": "quantitative"
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "circle",
-        "size": 90,
-        "color": "#7a4ea3",
-        "opacity": 1
-      },
-      "encoding": {
-        "x": {
-          "field": "pct_2025",
-          "type": "quantitative",
-          "scale": {
-            "domain": [0, 100]
-          },
-          "axis": {
-            "title": "Adults active at this frequency (%)",
-            "titleFontSize": 11,
-            "titleColor": "#405148",
-            "titlePadding": 10,
-            "labelFontSize": 11,
-            "labelColor": "#405148",
-            "labelPadding": 6,
-            "grid": false,
-            "tickCount": 5,
-            "domain": true,
-            "domainColor": "#87948d",
-            "domainWidth": 1.2,
-            "ticks": true,
-            "tickColor": "#87948d",
-            "tickSize": 4
-          }
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "baseline": "middle",
-        "dx": 10,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#20322b"
-      },
-      "encoding": {
-        "x": {
-          "field": "label_x",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "pct_2025",
-          "type": "quantitative",
-          "format": ".1f"
-        }
-      }
-    }
-  ],
-  "config": {
-    "font": "Source Sans 3, Arial, sans-serif",
-    "view": {
-      "stroke": null
-    }
-  }
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Dot plot comparing the share of adults active at a chosen frequency in each state and territory, 2025 with 2024 shown as a hollow ring.",
+    "width":  "container",
+    "height":  300,
+    "title":  {
+                  "text":  "● 2025     ○ 2024",
+                  "anchor":  "end",
+                  "fontSize":  12,
+                  "fontWeight":  "bold",
+                  "color":  "#7a4ea3",
+                  "offset":  10
+              },
+    "padding":  {
+                    "left":  10,
+                    "right":  12,
+                    "top":  4,
+                    "bottom":  6
+                },
+    "params":  [
+                   {
+                       "name":  "frequency_choice",
+                       "value":  "At least once per week",
+                       "bind":  {
+                                    "input":  "select",
+                                    "name":  "How often: ",
+                                    "options":  [
+                                                    "At least once per week",
+                                                    "At least three times per week"
+                                                ],
+                                    "labels":  [
+                                                   "At least once a week",
+                                                   "At least three times a week"
+                                               ]
+                                }
+                   }
+               ],
+    "data":  {
+                 "url":  "data/activity_by_state.csv",
+                 "format":  {
+                                "type":  "csv"
+                            }
+             },
+    "transform":  [
+                      {
+                          "filter":  "datum.frequency === frequency_choice"
+                      },
+                      {
+                          "pivot":  "year",
+                          "value":  "participation_pct",
+                          "groupby":  [
+                                          "state",
+                                          "state_code"
+                                      ]
+                      },
+                      {
+                          "calculate":  "toNumber(datum[\u00272024\u0027])",
+                          "as":  "pct_2024"
+                      },
+                      {
+                          "calculate":  "toNumber(datum[\u00272025\u0027])",
+                          "as":  "pct_2025"
+                      },
+                      {
+                          "calculate":  "datum.pct_2025 - datum.pct_2024",
+                          "as":  "change"
+                      },
+                      {
+                          "calculate":  "max(datum.pct_2024, datum.pct_2025)",
+                          "as":  "label_x"
+                      }
+                  ],
+    "encoding":  {
+                     "y":  {
+                               "field":  "state",
+                               "type":  "nominal",
+                               "sort":  {
+                                            "field":  "pct_2025",
+                                            "order":  "descending"
+                                        },
+                               "axis":  {
+                                            "title":  null,
+                                            "labelFontSize":  11,
+                                            "labelColor":  "#405148",
+                                            "labelPadding":  8,
+                                            "labelLimit":  200,
+                                            "ticks":  false,
+                                            "domain":  false
+                                        }
+                           },
+                     "tooltip":  [
+                                     {
+                                         "field":  "state",
+                                         "type":  "nominal",
+                                         "title":  "State or territory"
+                                     },
+                                     {
+                                         "field":  "pct_2025",
+                                         "type":  "quantitative",
+                                         "title":  "2025 (%)",
+                                         "format":  ".1f"
+                                     },
+                                     {
+                                         "field":  "pct_2024",
+                                         "type":  "quantitative",
+                                         "title":  "2024 (%)",
+                                         "format":  ".1f"
+                                     },
+                                     {
+                                         "field":  "change",
+                                         "type":  "quantitative",
+                                         "title":  "Change (points)",
+                                         "format":  "+.1f"
+                                     }
+                                 ]
+                 },
+    "layer":  [
+                  {
+                      "mark":  {
+                                   "type":  "rule",
+                                   "color":  "#ddd0ea",
+                                   "strokeWidth":  2
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "pct_2025",
+                                                 "type":  "quantitative"
+                                             },
+                                       "x2":  {
+                                                  "datum":  0
+                                              }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "point",
+                                   "shape":  "circle",
+                                   "filled":  false,
+                                   "size":  80,
+                                   "strokeWidth":  1.6,
+                                   "color":  "#7a4ea3",
+                                   "opacity":  0.75
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "pct_2024",
+                                                 "type":  "quantitative"
+                                             }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "circle",
+                                   "size":  90,
+                                   "color":  "#7a4ea3",
+                                   "opacity":  1
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "pct_2025",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              0,
+                                                                              100
+                                                                          ]
+                                                           },
+                                                 "axis":  {
+                                                              "title":  "Adults active at this frequency (%)",
+                                                              "titleFontSize":  11,
+                                                              "titleColor":  "#405148",
+                                                              "titlePadding":  10,
+                                                              "labelFontSize":  11,
+                                                              "labelColor":  "#405148",
+                                                              "labelPadding":  6,
+                                                              "grid":  false,
+                                                              "tickCount":  5,
+                                                              "domain":  true,
+                                                              "domainColor":  "#87948d",
+                                                              "domainWidth":  1.2,
+                                                              "ticks":  true,
+                                                              "tickColor":  "#87948d",
+                                                              "tickSize":  4
+                                                          }
+                                             }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "left",
+                                   "baseline":  "middle",
+                                   "dx":  10,
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold",
+                                   "color":  "#20322b"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "label_x",
+                                                 "type":  "quantitative"
+                                             },
+                                       "text":  {
+                                                    "field":  "pct_2025",
+                                                    "type":  "quantitative",
+                                                    "format":  ".1f"
+                                                }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               },
+    "autosize":  {
+                     "type":  "fit-x",
+                     "contains":  "padding",
+                     "resize":  true
+                 }
 }

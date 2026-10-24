@@ -1,228 +1,245 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "States and territories ranked by organised volunteering participation in 2025.",
-  "width": "container",
-  "height": 360,
-  
-  "autosize": {
-    "type": "fit-x",
-    "contains": "padding",
-    "resize": true
-  },
-  "padding": {
-    "left": 8,
-    "right": 16,
-    "top": 8,
-    "bottom": 8
-  },
-  "data": {
-    "url": "data/state_contribution.csv",
-    "format": {
-      "type": "csv"
-    }
-  },
-  "transform": [
-    {
-      "filter": "isValid(datum.formal_volunteering_pct) && datum.state !== 'Australia'"
-    },
-    {
-      "calculate": "toNumber(datum.formal_volunteering_pct)",
-      "as": "volunteering_pct"
-    },
-    {
-      "calculate": "datum.volunteering_pct > 22.6 ? 'Above Australian rate' : 'At or below Australian rate'",
-      "as": "rate_category"
-    },
-    {
-      "calculate": "format(datum.volunteering_pct, '.1f') + '%'",
-      "as": "value_label"
-    }
-  ],
-  "layer": [
-    {
-      "mark": {
-        "type": "bar",
-        "height": 26,
-        "cornerRadiusEnd": 3
-      },
-      "encoding": {
-        "y": {
-          "field": "state",
-          "type": "nominal",
-          "sort": {
-            "field": "volunteering_pct",
-            "order": "descending"
-          },
-          "axis": {
-            "title": null,
-            "labelFontSize": 12,
-            "labelLimit": 230,
-            "labelPadding": 10,
-            "labelColor": "#44544b",
-            "ticks": false,
-            "domain": false
-          }
-        },
-        "x": {
-          "field": "volunteering_pct",
-          "type": "quantitative",
-          "scale": {
-            "domain": [0, 30],
-            "nice": false
-          },
-          "axis": {
-            "title": "Volunteered through an organisation, 2025 (%)",
-            "values": [0, 5, 10, 15, 20, 25, 30],
-            "format": ".0f",
-            "labelFontSize": 11,
-            "labelPadding": 8,
-            "titleFontSize": 12,
-            "titlePadding": 14,
-            "labelColor": "#44544b",
-            "titleColor": "#20322b",
-            "grid": true,
-            "gridColor": "#e4e9e5",
-            "tickSize": 0,
-            "domainColor": "#9aa8a0"
-          }
-        },
-        "color": {
-          "field": "rate_category",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Above Australian rate",
-              "At or below Australian rate"
-            ],
-            "range": [
-              "#AA4499",
-              "#DDCC77"
-            ]
-          },
-          "legend": {
-            "title": null,
-            "orient": "bottom",
-            "direction": "horizontal",
-            "columns": 1,
-            "labelFontSize": 11,
-            "labelLimit": 280,
-            "labelColor": "#44544b",
-            "symbolType": "square",
-            "offset": 18
-          }
-        },
-        "tooltip": [
-          {
-            "field": "state",
-            "type": "nominal",
-            "title": "State or territory"
-          },
-          {
-            "field": "value_label",
-            "type": "nominal",
-            "title": "Organised volunteering"
-          },
-          {
-            "field": "rate_category",
-            "type": "nominal",
-            "title": "Compared with Australia"
-          }
-        ]
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "national_rate": 22.6
-          }
-        ]
-      },
-      "transform": [],
-      "mark": {
-        "type": "rule",
-        "color": "#52635a",
-        "strokeWidth": 2,
-        "strokeDash": [5, 4]
-      },
-      "encoding": {
-        "x": {
-          "field": "national_rate",
-          "type": "quantitative"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "national_rate": 22.6,
-            "label": "Australia 22.6%"
-          }
-        ]
-      },
-      "transform": [],
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "baseline": "bottom",
-        "dy": -8,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#52635a"
-      },
-      "encoding": {
-        "x": {
-          "field": "national_rate",
-          "type": "quantitative"
-        },
-        "y": {
-          "value": 0
-        },
-        "text": {
-          "field": "label"
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "baseline": "middle",
-        "dx": -7,
-        "fontSize": 12,
-        "fontWeight": "bold"
-      },
-      "encoding": {
-        "y": {
-          "field": "state",
-          "type": "nominal",
-          "sort": {
-            "field": "volunteering_pct",
-            "order": "descending"
-          }
-        },
-        "x": {
-          "field": "volunteering_pct",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "value_label"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.volunteering_pct > 22.6",
-            "value": "#ffffff"
-          },
-          "value": "#20322b"
-        }
-      }
-    }
-  ],
-  "config": {
-    "font": "Source Sans 3, Arial, sans-serif",
-    "view": {
-      "stroke": null
-    }
-  }
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "States and territories ranked by organised volunteering participation in 2025.",
+    "width":  "container",
+    "height":  360,
+    "autosize":  {
+                     "type":  "fit-x",
+                     "contains":  "padding",
+                     "resize":  true
+                 },
+    "padding":  {
+                    "left":  20,
+                    "right":  16,
+                    "top":  8,
+                    "bottom":  8
+                },
+    "data":  {
+                 "url":  "data/state_contribution.csv",
+                 "format":  {
+                                "type":  "csv"
+                            }
+             },
+    "transform":  [
+                      {
+                          "filter":  "isValid(datum.formal_volunteering_pct) \u0026\u0026 datum.state !== \u0027Australia\u0027"
+                      },
+                      {
+                          "calculate":  "toNumber(datum.formal_volunteering_pct)",
+                          "as":  "volunteering_pct"
+                      },
+                      {
+                          "calculate":  "datum.volunteering_pct \u003e 22.6 ? \u0027Above Australian rate\u0027 : \u0027At or below Australian rate\u0027",
+                          "as":  "rate_category"
+                      },
+                      {
+                          "calculate":  "format(datum.volunteering_pct, \u0027.1f\u0027) + \u0027%\u0027",
+                          "as":  "value_label"
+                      }
+                  ],
+    "layer":  [
+                  {
+                      "mark":  {
+                                   "type":  "bar",
+                                   "height":  26,
+                                   "cornerRadiusEnd":  3
+                               },
+                      "encoding":  {
+                                       "y":  {
+                                                 "field":  "state",
+                                                 "type":  "nominal",
+                                                 "sort":  {
+                                                              "field":  "volunteering_pct",
+                                                              "order":  "descending"
+                                                          },
+                                                 "axis":  {
+                                                              "title":  null,
+                                                              "labelFontSize":  12,
+                                                              "labelLimit":  230,
+                                                              "labelPadding":  10,
+                                                              "labelColor":  "#44544b",
+                                                              "ticks":  false,
+                                                              "domain":  false
+                                                          }
+                                             },
+                                       "x":  {
+                                                 "field":  "volunteering_pct",
+                                                 "type":  "quantitative",
+                                                 "scale":  {
+                                                               "domain":  [
+                                                                              0,
+                                                                              30
+                                                                          ],
+                                                               "nice":  false
+                                                           },
+                                                 "axis":  {
+                                                              "title":  "Volunteered through an organisation, 2025 (%)",
+                                                              "values":  [
+                                                                             0,
+                                                                             5,
+                                                                             10,
+                                                                             15,
+                                                                             20,
+                                                                             25,
+                                                                             30
+                                                                         ],
+                                                              "format":  ".0f",
+                                                              "labelFontSize":  11,
+                                                              "labelPadding":  8,
+                                                              "titleFontSize":  12,
+                                                              "titlePadding":  14,
+                                                              "labelColor":  "#44544b",
+                                                              "titleColor":  "#20322b",
+                                                              "grid":  true,
+                                                              "gridColor":  "#e4e9e5",
+                                                              "tickSize":  0,
+                                                              "domainColor":  "#9aa8a0"
+                                                          }
+                                             },
+                                       "color":  {
+                                                     "field":  "rate_category",
+                                                     "type":  "nominal",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  "Above Australian rate",
+                                                                                  "At or below Australian rate"
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#AA4499",
+                                                                                 "#DDCC77"
+                                                                             ]
+                                                               },
+                                                     "legend":  {
+                                                                    "title":  null,
+                                                                    "orient":  "bottom",
+                                                                    "direction":  "horizontal",
+                                                                    "columns":  1,
+                                                                    "labelFontSize":  11,
+                                                                    "labelLimit":  280,
+                                                                    "labelColor":  "#44544b",
+                                                                    "symbolType":  "square",
+                                                                    "offset":  18
+                                                                }
+                                                 },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "state",
+                                                           "type":  "nominal",
+                                                           "title":  "State or territory"
+                                                       },
+                                                       {
+                                                           "field":  "value_label",
+                                                           "type":  "nominal",
+                                                           "title":  "Organised volunteering"
+                                                       },
+                                                       {
+                                                           "field":  "rate_category",
+                                                           "type":  "nominal",
+                                                           "title":  "Compared with Australia"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "national_rate":  22.6
+                                                  }
+                                              ]
+                               },
+                      "transform":  [
+
+                                    ],
+                      "mark":  {
+                                   "type":  "rule",
+                                   "color":  "#52635a",
+                                   "strokeWidth":  2,
+                                   "strokeDash":  [
+                                                      5,
+                                                      4
+                                                  ]
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "national_rate",
+                                                 "type":  "quantitative"
+                                             }
+                                   }
+                  },
+                  {
+                      "data":  {
+                                   "values":  [
+                                                  {
+                                                      "national_rate":  22.6,
+                                                      "label":  "Australia 22.6%"
+                                                  }
+                                              ]
+                               },
+                      "transform":  [
+
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "center",
+                                   "baseline":  "bottom",
+                                   "dy":  -8,
+                                   "fontSize":  11,
+                                   "fontWeight":  "bold",
+                                   "color":  "#52635a"
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "national_rate",
+                                                 "type":  "quantitative"
+                                             },
+                                       "y":  {
+                                                 "value":  0
+                                             },
+                                       "text":  {
+                                                    "field":  "label"
+                                                }
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "text",
+                                   "align":  "right",
+                                   "baseline":  "middle",
+                                   "dx":  -7,
+                                   "fontSize":  12,
+                                   "fontWeight":  "bold"
+                               },
+                      "encoding":  {
+                                       "y":  {
+                                                 "field":  "state",
+                                                 "type":  "nominal",
+                                                 "sort":  {
+                                                              "field":  "volunteering_pct",
+                                                              "order":  "descending"
+                                                          }
+                                             },
+                                       "x":  {
+                                                 "field":  "volunteering_pct",
+                                                 "type":  "quantitative"
+                                             },
+                                       "text":  {
+                                                    "field":  "value_label"
+                                                },
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "datum.volunteering_pct \u003e 22.6",
+                                                                       "value":  "#ffffff"
+                                                                   },
+                                                     "value":  "#20322b"
+                                                 }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               }
 }

@@ -1,200 +1,268 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Heatmap comparing formal volunteering, informal volunteering and unpaid help across Australian states and territories.",
-  "width": "container",
-  "height": 315,
-  "padding": {
-    "left": 0,
-    "right": 8,
-    "top": 4,
-    "bottom": 8
-  },
-  "data": {
-    "url": "data/state_contribution.csv",
-    "format": {
-      "type": "csv"
-    }
-  },
-  "transform": [
-    {
-    "fold": [
-    "formal_volunteering_pct",
-    "informal_volunteering_pct",
-    "unpaid_support_pct"
-    ],
-      "as": [
-        "measure_key",
-        "rate"
-      ]
-    },
-    {
-      "calculate": "datum.measure_key === 'formal_volunteering_pct' ? 'Formal volunteering' : datum.measure_key === 'informal_volunteering_pct' ? 'Informal volunteering' : 'Unpaid help to others'",
-      "as": "measure"
-    },
-    {
-      "calculate": "datum.measure_key === 'formal_volunteering_pct' ? 22.6 : datum.measure_key === 'informal_volunteering_pct' ? 29.5 : 45.0",
-      "as": "australian_rate"
-    },
-    {
-      "calculate": "datum.rate - datum.australian_rate",
-      "as": "difference"
-    }
-  ],
-  "layer": [
-    {
-      "mark": {
-        "type": "rect",
-        "stroke": "#ffffff",
-        "strokeWidth": 2.5
-      },
-      "encoding": {
-        "x": {
-          "field": "measure",
-          "type": "nominal",
-          "sort": [
-            "Formal volunteering",
-            "Informal volunteering",
-            "Unpaid help to others"
-          ],
-          "axis": {
-            "orient": "top",
-            "title": "Contribution type",
-            "titleFontSize": 12,
-            "titleColor": "#405148",
-            "titlePadding": 10,
-            "labelFontSize": 11,
-            "labelFontWeight": "bold",
-            "labelColor": "#405148",
-            "labelAngle": 0,
-            "labelPadding": 6,
-            "ticks": false,
-            "domain": false
-          }
-        },
-        "y": {
-          "field": "state",
-          "type": "nominal",
-          "sort": [
-            "Northern Territory",
-            "Tasmania",
-            "Western Australia",
-            "Victoria",
-            "South Australia",
-            "Australian Capital Territory",
-            "Queensland",
-            "New South Wales"
-          ],
-          "axis": {
-            "title": "State or territory",
-            "titleFontSize": 12,
-            "titleColor": "#405148",
-            "titlePadding": 12,
-            "labelLimit": 200,
-            "labelFontSize": 11,
-            "labelColor": "#405148",
-            "labelPadding": 8,
-            "ticks": false,
-            "domain": false
-          }
-        },
-        "color": {
-          "field": "difference",
-          "type": "quantitative",
-          "scale": {
-            "domain": [-9, 0, 9],
-            "range": ["#bb8136", "#f0eee6", "#087394"]
-          },
-          "legend": {
-            "orient": "bottom",
-            "direction": "horizontal",
-            "title": "Difference from Australian rate (percentage points)",
-            "titleFontSize": 11,
-            "titleColor": "#405148",
-            "titleLimit": 400,
-            "labelFontSize": 11,
-            "labelColor": "#405148",
-            "gradientLength": 300,
-            "gradientThickness": 15,
-            "values": [-9, -6, -3, 0, 3, 6, 9],
-            "labelExpr": "datum.value > 0 ? '+' + datum.label : datum.value === 0 ? '0 (Australia)' : datum.label",
-            "offset": 14
-          }
-        },
-        "tooltip": [
-          {
-            "field": "state",
-            "type": "nominal",
-            "title": "State or territory"
-          },
-          {
-            "field": "measure",
-            "type": "nominal",
-            "title": "Contribution type"
-          },
-          {
-            "field": "rate",
-            "type": "quantitative",
-            "title": "Rate (%)",
-            "format": ".1f"
-          },
-          {
-            "field": "difference",
-            "type": "quantitative",
-            "title": "Compared with Australia (points)",
-            "format": "+.1f"
-          }
-        ]
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "fontSize": 11,
-        "fontWeight": "bold"
-      },
-      "encoding": {
-        "x": {
-          "field": "measure",
-          "type": "nominal",
-          "sort": [
-            "Formal volunteering",
-            "Informal volunteering",
-            "Unpaid help to others"
-          ]
-        },
-        "y": {
-          "field": "state",
-          "type": "nominal",
-          "sort": [
-            "Northern Territory",
-            "Tasmania",
-            "Western Australia",
-            "Victoria",
-            "South Australia",
-            "Australian Capital Territory",
-            "Queensland",
-            "New South Wales"
-          ]
-        },
-        "text": {
-          "field": "rate",
-          "type": "quantitative",
-          "format": ".1f"
-        },
-        "color": {
-          "condition": {
-            "test": "abs(datum.difference) >= 5",
-            "value": "#ffffff"
-          },
-          "value": "#405148"
-        }
-      }
-    }
-  ],
-  "config": {
-    "font": "Source Sans 3, Arial, sans-serif",
-    "view": {
-      "stroke": null
-    }
-  }
+    "$schema":  "https://vega.github.io/schema/vega-lite/v5.json",
+    "description":  "Heatmap comparing formal volunteering, informal volunteering and unpaid help across Australian states and territories.",
+    "width":  "container",
+    "height":  380,
+    "padding":  {
+                    "left":  0,
+                    "right":  8,
+                    "top":  4,
+                    "bottom":  8
+                },
+    "data":  {
+                 "url":  "data/state_contribution.csv",
+                 "format":  {
+                                "type":  "csv"
+                            }
+             },
+    "transform":  [
+                      {
+                          "fold":  [
+                                       "formal_volunteering_pct",
+                                       "informal_volunteering_pct",
+                                       "unpaid_support_pct"
+                                   ],
+                          "as":  [
+                                     "measure_key",
+                                     "rate"
+                                 ]
+                      },
+                      {
+                          "calculate":  "datum.measure_key === \u0027formal_volunteering_pct\u0027 ? \u0027Formal volunteering\u0027 : datum.measure_key === \u0027informal_volunteering_pct\u0027 ? \u0027Informal volunteering\u0027 : \u0027Unpaid help to others\u0027",
+                          "as":  "measure"
+                      },
+                      {
+                          "calculate":  "datum.measure_key === \u0027formal_volunteering_pct\u0027 ? 22.6 : datum.measure_key === \u0027informal_volunteering_pct\u0027 ? 29.5 : 45.0",
+                          "as":  "australian_rate"
+                      },
+                      {
+                          "calculate":  "datum.rate - datum.australian_rate",
+                          "as":  "difference"
+                      }
+                  ],
+    "layer":  [
+                  {
+                      "mark":  {
+                                   "type":  "rect",
+                                   "stroke":  "#ffffff",
+                                   "strokeWidth":  2.5
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "measure",
+                                                 "type":  "nominal",
+                                                 "sort":  [
+                                                              "Formal volunteering",
+                                                              "Informal volunteering",
+                                                              "Unpaid help to others"
+                                                          ],
+                                                 "axis":  {
+                                                              "orient":  "top",
+                                                              "title":  "Contribution type",
+                                                              "titleFontSize":  12,
+                                                              "titleColor":  "#405148",
+                                                              "titlePadding":  12,
+                                                              "labelFontSize":  11,
+                                                              "labelFontWeight":  "bold",
+                                                              "labelColor":  "#405148",
+                                                              "labelAngle":  0,
+                                                              "labelPadding":  24,
+                                                              "ticks":  false,
+                                                              "domain":  false,
+                                                              "labelExpr":  "datum.value === \u0027Formal volunteering\u0027 ? [\u0027Formal volunteering\u0027, \u0027Australia: 22.6%\u0027] : datum.value === \u0027Informal volunteering\u0027 ? [\u0027Informal volunteering\u0027, \u0027Australia: 29.5%\u0027] : [\u0027Unpaid help to others\u0027, \u0027Australia: 45.0%\u0027]",
+                                                              "labelLineHeight":  15,
+                                                              "labelBaseline":  "bottom"
+                                                          }
+                                             },
+                                       "y":  {
+                                                 "field":  "state",
+                                                 "type":  "nominal",
+                                                 "sort":  [
+                                                              "Northern Territory",
+                                                              "Tasmania",
+                                                              "Western Australia",
+                                                              "Victoria",
+                                                              "South Australia",
+                                                              "Australian Capital Territory",
+                                                              "Queensland",
+                                                              "New South Wales"
+                                                          ],
+                                                 "axis":  {
+                                                              "title":  "State or territory",
+                                                              "titleFontSize":  12,
+                                                              "titleColor":  "#405148",
+                                                              "titlePadding":  12,
+                                                              "labelLimit":  200,
+                                                              "labelFontSize":  11,
+                                                              "labelColor":  "#405148",
+                                                              "labelPadding":  8,
+                                                              "ticks":  false,
+                                                              "domain":  false
+                                                          }
+                                             },
+                                       "color":  {
+                                                     "field":  "difference",
+                                                     "type":  "quantitative",
+                                                     "scale":  {
+                                                                   "domain":  [
+                                                                                  -9,
+                                                                                  0,
+                                                                                  9
+                                                                              ],
+                                                                   "range":  [
+                                                                                 "#bb8136",
+                                                                                 "#f0eee6",
+                                                                                 "#087394"
+                                                                             ]
+                                                               },
+                                                     "legend":  {
+                                                                    "orient":  "bottom",
+                                                                    "direction":  "horizontal",
+                                                                    "title":  "Bold number and colour: difference from the Australian rate (percentage points)",
+                                                                    "titleFontSize":  11,
+                                                                    "titleColor":  "#405148",
+                                                                    "titleLimit":  600,
+                                                                    "labelFontSize":  11,
+                                                                    "labelColor":  "#405148",
+                                                                    "gradientLength":  300,
+                                                                    "gradientThickness":  15,
+                                                                    "values":  [
+                                                                                   -9,
+                                                                                   -6,
+                                                                                   -3,
+                                                                                   0,
+                                                                                   3,
+                                                                                   6,
+                                                                                   9
+                                                                               ],
+                                                                    "labelExpr":  "datum.value \u003e 0 ? \u0027+\u0027 + datum.label : datum.value === 0 ? \u00270 (Australia)\u0027 : datum.label",
+                                                                    "offset":  14
+                                                                }
+                                                 },
+                                       "tooltip":  [
+                                                       {
+                                                           "field":  "state",
+                                                           "type":  "nominal",
+                                                           "title":  "State or territory"
+                                                       },
+                                                       {
+                                                           "field":  "measure",
+                                                           "type":  "nominal",
+                                                           "title":  "Contribution type"
+                                                       },
+                                                       {
+                                                           "field":  "rate",
+                                                           "type":  "quantitative",
+                                                           "title":  "Rate (%)",
+                                                           "format":  ".1f"
+                                                       },
+                                                       {
+                                                           "field":  "difference",
+                                                           "type":  "quantitative",
+                                                           "title":  "Compared with Australia (points)",
+                                                           "format":  "+.1f"
+                                                       }
+                                                   ]
+                                   }
+                  },
+                  {
+                      "mark":  {
+                                   "type":  "text",
+                                   "fontSize":  13,
+                                   "fontWeight":  "bold",
+                                   "dy":  -7
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "measure",
+                                                 "type":  "nominal",
+                                                 "sort":  [
+                                                              "Formal volunteering",
+                                                              "Informal volunteering",
+                                                              "Unpaid help to others"
+                                                          ]
+                                             },
+                                       "y":  {
+                                                 "field":  "state",
+                                                 "type":  "nominal",
+                                                 "sort":  [
+                                                              "Northern Territory",
+                                                              "Tasmania",
+                                                              "Western Australia",
+                                                              "Victoria",
+                                                              "South Australia",
+                                                              "Australian Capital Territory",
+                                                              "Queensland",
+                                                              "New South Wales"
+                                                          ]
+                                             },
+                                       "text":  {
+                                                    "field":  "difference",
+                                                    "type":  "quantitative",
+                                                    "format":  "+.1f"
+                                                },
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "abs(datum.difference) \u003e= 5",
+                                                                       "value":  "#ffffff"
+                                                                   },
+                                                     "value":  "#405148"
+                                                 }
+                                   }
+                  },
+                  {
+                      "transform":  [
+                                        {
+                                            "calculate":  "format(datum.rate, \u0027.1f\u0027) + \u0027%\u0027",
+                                            "as":  "rate_label"
+                                        }
+                                    ],
+                      "mark":  {
+                                   "type":  "text",
+                                   "fontSize":  10.5,
+                                   "dy":  9
+                               },
+                      "encoding":  {
+                                       "x":  {
+                                                 "field":  "measure",
+                                                 "type":  "nominal",
+                                                 "sort":  [
+                                                              "Formal volunteering",
+                                                              "Informal volunteering",
+                                                              "Unpaid help to others"
+                                                          ]
+                                             },
+                                       "y":  {
+                                                 "field":  "state",
+                                                 "type":  "nominal",
+                                                 "sort":  [
+                                                              "Northern Territory",
+                                                              "Tasmania",
+                                                              "Western Australia",
+                                                              "Victoria",
+                                                              "South Australia",
+                                                              "Australian Capital Territory",
+                                                              "Queensland",
+                                                              "New South Wales"
+                                                          ]
+                                             },
+                                       "text":  {
+                                                    "field":  "rate_label"
+                                                },
+                                       "color":  {
+                                                     "condition":  {
+                                                                       "test":  "abs(datum.difference) \u003e= 5",
+                                                                       "value":  "#ffffff"
+                                                                   },
+                                                     "value":  "#405148"
+                                                 }
+                                   }
+                  }
+              ],
+    "config":  {
+                   "font":  "Source Sans 3, Arial, sans-serif",
+                   "view":  {
+                                "stroke":  null
+                            }
+               }
 }
